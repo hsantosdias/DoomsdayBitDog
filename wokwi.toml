@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = 'build/DoomsdayBitDog.uf2'
+elf = 'build/DoomsdayBitDog.elf'
