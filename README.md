@@ -1,4 +1,5 @@
-# **DoomsdayBitDog: Kit de Sobrevivência em Cenários de Catástrofes** utilizando o **RP2040 (Raspberry Pi Pico)** e a **BitDogLab** .
+# **DoomsdayBitDog: Kit de Sobrevivência em Cenários de Catástrofes** utilizando o **RP2040 (Raspberry Pi Pico)** e a **BitDogLab**.
+
 
 ### Informações iniciais sobre o projeto e diretizes que serão seguidas - criterios e requisitos expressos pelo professor Wilton:
 
@@ -45,11 +46,26 @@ Usar um software para simular sensores:
 
 ---
 
-# **1. Estrutura do Projeto - DoomsdayBitDog:**
+# **Estrutura do Projeto - DoomsdayBitDog:**
 
-## 1.0 - Daemon Simulator (simulador de variaveis)
+# **1. Módulo - IHM - Interface Homem Máquina**
 
-## 1.1 **Módulo de Comunicação e Alerta** :
+## 1.1 – Descrição do Projeto
+
+O BitDogLab-Menu é um sistema de navegação de menus desenvolvido para o RP2040 utilizando um joystick e um display OLED SSD1306. Este projeto permite navegar por um menu hierárquico com submenus e executar ações associadas a cada opção do menu. Foi desenvolvido em C utilizando o Pico SDK, com suporte para navegação fluida e hierárquica.
+
+## 1.2 – Funcionalidades Implementadas
+
+* **Navegação Hierárquica:** Permite navegar por submenus e retornar ao menu principal.
+* **Execução de Ações:** Cada opção de menu executa uma função associada ao ser selecionada.
+* **Histórico de Navegação:** Mantém um registro do caminho percorrido, possibilitando o retorno ao nível anterior.
+* **Timeout do Menu:** Após 30 segundos de inatividade, o sistema retorna automaticamente ao menu principal.
+* **Controle via Joystick:** Navegação e seleção de opções com um joystick analógico.
+* **Display OLED SSD1306:** Exibe o menu utilizando a biblioteca SSD1306.
+
+## 2 - Daemon Simulator (simulador de variaveis)
+
+## 2.1 **Módulo de Comunicação e Alerta** :
 
 * Simulação de comunicação de emergência via  **UART (GPIO 0 e 1)** .
 * Alerta sonoro com  **Buzzer (GPIO 21)**.
@@ -57,14 +73,14 @@ Usar um software para simular sensores:
 * Transmissão de Radio Frequencia - Utilizando o PIO e PLL
 * **Microfone (GPIO 28)**
 
-## 1.2 **Módulo de Sensoriamento Ambiental (Simulação)** :
+## 2.2 **Módulo de Sensoriamento Ambiental (Simulação)** :
 
 * Utilização do **Joystick** para simular sensores:
   * **X (GPIO 26)** para Gases Tóxicos.
   * **Y (GPIO 27)** para Radiação UV.
   * **Botão Push (GPIO 22)** para Temperatura e Umidade.
 
-## 1.3 **Módulo de Navegação e Localização (Simulação)** :
+## 2.3 **Módulo de Navegação e Localização (Simulação)** :
 
 * Utilização do **Joystick** para simular:
   * **X (GPIO 26)** para Coordenadas GPS.
@@ -73,24 +89,10 @@ Usar um software para simular sensores:
   * **Botão A (GPIO 5)**
   * **Botão A (GPIO 6)**
 
-## 1.4 **Módulo de Controle e Interface** :
+## 2.4 **Módulo de Controle e Interface** :
 
 * **Joystick** para navegação no menu.
 * **OLED SSD1306** (I2C em GPIO 15 SCL e 14 SDA) para exibir informações.
-
-# **2. Configuração do Projeto:**
-
-* Utilize o **Visual Studio Code** com a  **extensão Raspberry Pico SDK** .
-* Estrutura de diretórios inicial:
-
-```
-├── CMakeLists.txt 
-  ├── DoomsdayBitDog.c //Programa principal
-  └── lib/
-  └── ssd1306/
-  ├── ssd1306.c
-  └── ssd1306.h
-```
 
 # **3. Módulo de Comunicação e Alerta (UART, LEDs e Buzzer):**
 
@@ -147,3 +149,19 @@ Controle o Buzzer com PWM para emitir alertas sonoros:
 * Teste em ambientes simulados de catástrofes - simulador.
 * Verifique a resposta dos alertas sonoros e visuais.
 * Teste a navegação do menu com o joystick.
+
+---
+
+# **A. Configuração do Projeto:**
+
+* Utilize o **Visual Studio Code** com a  **extensão Raspberry Pico SDK** .
+* Estrutura de diretórios inicial:
+
+```
+├── CMakeLists.txt 
+  ├── DoomsdayBitDog.c //Programa principal
+  └── lib/
+  └── ssd1306/
+  ├── ssd1306.c
+  └── ssd1306.h
+```
