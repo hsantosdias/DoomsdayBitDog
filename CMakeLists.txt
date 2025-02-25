@@ -51,6 +51,7 @@ target_link_libraries(DoomsdayBitDog
         pico_stdlib hardware_uart hardware_i2c)
         pico_enable_stdio_usb(DoomsdayBitDog 1)
         pico_enable_stdio_uart(DoomsdayBitDog 0)
+
         pico_add_extra_outputs(DoomsdayBitDog)
 
         # Add the standard include files to the build
@@ -59,7 +60,7 @@ target_include_directories(DoomsdayBitDog PRIVATE
 )
 
 # Add any user requested libraries
-target_link_libraries(DoomsdayBitDog  pico_stdlib hardware_i2c hardware_adc hardware_pwm hardware_pio
+target_link_libraries(DoomsdayBitDog  pico_stdlib hardware_i2c hardware_adc hardware_pwm hardware_pio hardware_uart
         )
 
 pico_add_extra_outputs(DoomsdayBitDog)
