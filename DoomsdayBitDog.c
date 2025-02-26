@@ -79,6 +79,7 @@ void pop_menu();
 // Prototipação das funções de ação
 void mostrar_temperatura(void);
 void mostrar_umidade(void);
+void mostrar_luminosidade(void);
 void mostrar_posicao(void);
 void mostrar_mensagens(void);
 void configurar_sistema(void);
@@ -104,6 +105,7 @@ int menu_history_index = 0;
 Menu submenu_monitoramento[] = {
     {"Temperatura", NULL, 0, mostrar_temperatura},
     {"Umidade",     NULL, 0, mostrar_umidade},
+    {"Luminosidade",NULL, 0, mostrar_luminosidade},
     {"Voltar",      NULL, 0, voltar_menu_principal}
 };
 
@@ -272,13 +274,54 @@ void mostrar_umidade() {
 }
 
 
-void mostrar_posicao() {
-    ssd1306_fill(&ssd, false);
-    ssd1306_draw_string(&ssd, "Lat: -23.5", 10, 20);
-    ssd1306_draw_string(&ssd, "Long: -46.6", 10, 40);
-    ssd1306_send_data(&ssd);
-    sleep_ms(2000);
+void mostrar_luminosidade() {
+    absolute_time_t start_time = get_absolute_time();
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 3000000) { // 3 segundos
+        
+        DadosSensores dados = obter_dados_sensores();
+        char buffer[20];
+        snprintf(buffer, sizeof(buffer), "Luz: %.2flux", dados.luminosidade.atual);
+
+        ssd1306_fill(&ssd, false);  // Limpa a tela
+        ssd1306_draw_string(&ssd, "Luminosidade:", 0, 0);
+        ssd1306_draw_string(&ssd, buffer, 0, 16);
+        ssd1306_send_data(&ssd);
+
+        sleep_ms(500); // Atualiza a cada 500 ms para mostrar variação
+    }
+    voltar_menu_principal();   // Volta ao menu principal após 3 segundos
 }
+
+
+
+
+
+void mostrar_posicao() {
+    absolute_time_t start_time = get_absolute_time();
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 3000000) { // 3 segundos
+        
+        DadosSensores dados = obter_dados_sensores();
+        PosicaoGeografica posicao = obterPosicaoGeografica();
+
+        char buffer_lat[20];
+        char buffer_lon[20];
+        snprintf(buffer_lat, sizeof(buffer_lat), "Lat:%d %d' %.2f\"", 
+                 posicao.latitude.graus, posicao.latitude.minutos, posicao.latitude.segundos);
+
+        snprintf(buffer_lon, sizeof(buffer_lon), "Lon:%d %d' %.2f\"", 
+                 posicao.longitude.graus, posicao.longitude.minutos, posicao.longitude.segundos);
+
+        ssd1306_fill(&ssd, false);  // Limpa a tela
+        ssd1306_draw_string(&ssd, "Posicao:", 0, 0);
+        ssd1306_draw_string(&ssd, buffer_lat, 0, 16);
+        ssd1306_draw_string(&ssd, buffer_lon, 0, 32);
+        ssd1306_send_data(&ssd);
+
+        sleep_ms(500); // Atualiza a cada 500 ms para mostrar variação
+    }
+    voltar_menu_principal();   // Volta ao menu principal após 3 segundos
+}
+
 
 void mostrar_mensagens() {
     ssd1306_fill(&ssd, false);
