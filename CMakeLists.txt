@@ -1,5 +1,3 @@
-
-
 cmake_minimum_required(VERSION 3.13)
 
 set(CMAKE_C_STANDARD 11)
@@ -23,50 +21,55 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
+
+# Especifica a placa a ser utilizada
 set(PICO_BOARD pico CACHE STRING "Board type")
 
-# Pull in Raspberry Pi Pico SDK (must be before project)
+# Importa o Raspberry Pi Pico SDK
 include(pico_sdk_import.cmake)
 
+# Define o projeto
 project(DoomsdayBitDog C CXX ASM)
 
-# Initialise the Raspberry Pi Pico SDK
+# Inicializa o Raspberry Pi Pico SDK
 pico_sdk_init()
 
-# Add executable. Default name is the project name, version 0.1
+# Define o executável principal
+add_executable(DoomsdayBitDog 
+    DoomsdayBitDog.c 
+    src/BitDog-SensorMatrix.c 
+    src/ssd1306.c 
+    src/sensores.c 
+    led_matrix.c
+)
 
-add_executable(DoomsdayBitDog DoomsdayBitDog.c inc/ssd1306.c led_matrix.c)
+# Inclui diretórios de cabeçalhos
+target_include_directories(DoomsdayBitDog PRIVATE 
+    ${CMAKE_CURRENT_LIST_DIR}
+    ${CMAKE_CURRENT_LIST_DIR}/inc
+)
 
+# Define o nome do programa e a versão
 pico_set_program_name(DoomsdayBitDog "DoomsdayBitDog")
 pico_set_program_version(DoomsdayBitDog "0.1")
 
-# Modify the below lines to enable/disable output over UART/USB
+# Configurações de saída UART/USB
 pico_enable_stdio_uart(DoomsdayBitDog 0)
 pico_enable_stdio_usb(DoomsdayBitDog 1)
 
+# Gera o cabeçalho PIO para controle de LEDs WS2812b
 pico_generate_pio_header(DoomsdayBitDog ${CMAKE_CURRENT_LIST_DIR}/ws2812b.pio)
 
-# Add the standard library to the build
+# Linka as bibliotecas necessárias
 target_link_libraries(DoomsdayBitDog
-        pico_stdlib hardware_uart hardware_i2c)
-        pico_enable_stdio_usb(DoomsdayBitDog 1)
-        pico_enable_stdio_uart(DoomsdayBitDog 0)
-        pico_add_extra_outputs(DoomsdayBitDog)
-
-        # Add the standard include files to the build
-target_include_directories(DoomsdayBitDog PRIVATE
-  ${CMAKE_CURRENT_LIST_DIR}
-)
-
-# Add any user requested libraries
-target_link_libraries(DoomsdayBitDog 
     pico_stdlib
     hardware_i2c
     hardware_adc
+    hardware_uart
     hardware_pwm
     hardware_pio
-    hardware_uart
-        )
+    hardware_rtc  
+)
 
+# Gera os arquivos binários para upload na placa
 pico_add_extra_outputs(DoomsdayBitDog)
-

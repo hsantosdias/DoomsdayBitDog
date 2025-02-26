@@ -10,6 +10,8 @@
 //bibliotecas adicionais fornecidas inicialmente pelo professor Wilson
 #include "inc/ssd1306.h" // Inclui biblioteca de funções do display OLED SSD1306
 #include "inc/font.h" // Inclui biblioteca de fontes para o display OLED SSD1306 numeros e letras maiusculas e minusculas
+#include "inc/sensores.h" // Inclui biblioteca de funções de sensores (obterTemperatura, obterUmidade, etc)
+#include "BitDog-SensorMatrix.h" // Inclui biblioteca de funções de sensores (obterTemperatura, obterUmidade, etc)
 
 //bibliotecas adicional - para manipulação do display de matriz de leds
 #include "led_matrix.h" // Inclui biblioteca de funções da matriz de LEDs 5x5
@@ -230,13 +232,27 @@ void mostrar_menu() {
 
 
 
+void mostrar_temperatura() {
+    float temperatura = obterTemperatura();
+    char buffer[20];
+    snprintf(buffer, sizeof(buffer), "Temp: %.2f C", temperatura);
+
+    ssd1306_fill(&ssd, false);  // Limpa a tela
+    ssd1306_draw_string(&ssd, "Temperatura:", 0, 0);
+    ssd1306_draw_string(&ssd, buffer, 0, 16);
+    ssd1306_send_data(&ssd);
+    sleep_ms(2000);
+    voltar_menu_principal();   // Volta ao menu principal após exibir a mensagem
+}
 
 
+/*
 // Funções de Ação do Menu
 void mostrar_temperatura() {
     exibir_mensagem("Temperatura:", "25.5 C");
     voltar_menu_principal();  // Volta ao menu principal após exibir a mensagem 
 }
+*/
 
 void mostrar_umidade() {
     exibir_mensagem("Umidade:", "65%");
