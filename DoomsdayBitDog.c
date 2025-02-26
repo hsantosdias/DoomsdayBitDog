@@ -1,29 +1,31 @@
-/*
-Projeto BitDogLab - Menu
-Objetivo: Desenvolver um menu para seleção de opções
-Autor: Hugo Santos Dias
-*/
+#include <stdio.h> // Inclui biblioteca padrão de E/S em C (printf, scanf, etc) 
+#include <stdlib.h> // Inclui biblioteca padrão de funções em C (malloc, free, etc)
+#include <string.h> // Inclui biblioteca de funções de strings em C (strlen, strcmp, etc)
+#include "pico/stdlib.h" // Inclui biblioteca de funções do Pico (gpio_init, sleep_ms, etc)
+#include "hardware/adc.h" // Inclui biblioteca de funções de ADC (adc_init, adc_gpio_init, etc)
+#include "hardware/i2c.h" // Inclui biblioteca de funções de I2C (i2c_init, i2c_write_blocking, etc)
+#include "hardware/irq.h" // Inclui biblioteca de funções de interrupção (IRQ)
+#include "hardware/uart.h" // Inclui biblioteca de funções de UART (uart_init, uart_getc, etc)
 
-// Incluindo bibliotecas necessárias
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "pico/stdlib.h"
-#include "hardware/adc.h"
-#include "hardware/i2c.h"
-#include "ssd1306.h"
-#include "font.h"
+//bibliotecas adicionais fornecidas inicialmente pelo professor Wilson
+#include "inc/ssd1306.h" // Inclui biblioteca de funções do display OLED SSD1306
+#include "inc/font.h" // Inclui biblioteca de fontes para o display OLED SSD1306 numeros e letras maiusculas e minusculas
+
+//bibliotecas adicional - para manipulação do display de matriz de leds
+#include "led_matrix.h" // Inclui biblioteca de funções da matriz de LEDs 5x5
+
 // Trecho para modo BOOTSEL com Botão B
 #include "pico/bootrom.h"
 
 // Macro para calcular o tamanho de um array
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
 
-// Configurações do OLED
-#define I2C_PORT i2c1
-#define I2C_SDA 14
-#define I2C_SCL 15
-#define ENDERECO 0x3C
+// Definições do display SSD1306 128x64 I2C OLED
+// Configuração i2c para o display OLED
+#define I2C_PORT i2c1 // Define a porta I2C utilizada - porta 1 da bitdoglab
+#define I2C_SDA 14 // Define o pino SDA - GPIO 14
+#define I2C_SCL 15 // Define o pino SCL - GPIO 15
+#define ENDERECO 0x3C // Endereço do display OLED SSD1306
 
 // Configuração dos Botões e Joystick
 #define JOYSTICK_X_PIN 26  // GPIO para eixo X
@@ -31,6 +33,18 @@ Autor: Hugo Santos Dias
 #define JOYSTICK_PB 22     // GPIO para botão do Joystick (Selecionar)
 #define BOTAO_A 5          // GPIO para voltar ao Menu Principal
 #define BOTAO_B 6          // GPIO para BOOTSEL
+
+
+// Definições para UART (Comunicação Serial)
+#define UART_ID uart0 // Define a porta UART utilizada - porta 0 da bitdoglab
+#define BAUD_RATE 115200 // Define a taxa de transmissão de dados (baud rate) - 115200 bps
+#define UART_TX_PIN 0 // Define o pino TX da UART - GPIO 0
+#define UART_RX_PIN 1 // Define o pino RX da UART - GPIO 1
+
+// Definições para LEDs e botões
+#define LED_PIN_R 13    // LED Vermelho 
+#define LED_PIN_B 12    // LED Azul
+#define LED_PIN_G 11    // LED Verde
 
 #define MENU_TIMEOUT_US 30000000  // 30 segundos
 #define BUTTON_DEBOUNCE_US 50000  // 50 ms
@@ -40,6 +54,7 @@ Autor: Hugo Santos Dias
 
 // Estrutura do OLED
 ssd1306_t ssd;
+
 
 // Prototipagem de Funções para o Menu e Navegação do Menu Principal
 void iniciar_oled();
@@ -174,7 +189,7 @@ void desenhar_retangulo_selecao() {
 // Desenha setas de navegação
 void desenhar_setas() {
     if (num_opcoes > 1) {
-        ssd1306_draw_string(&ssd, "A", 125, opcao_atual * 16);
+        ssd1306_draw_string(&ssd, "x", 125, opcao_atual * 16);
         if (opcao_atual < num_opcoes - 1) {
             ssd1306_draw_string(&ssd, "v", 60, 56);
         }
@@ -404,7 +419,7 @@ int main() {
 
     iniciar_joystick();
     iniciar_oled();
-    //animacao_inicial(); // Fase de testes
+    // animacao_inicial(); // Fase de testes
 
     menu_atual = menu_principal;
     num_opcoes = NUM_OPCOES_PRINCIPAL;
@@ -432,5 +447,4 @@ int main() {
         }
     }
 }
-
 

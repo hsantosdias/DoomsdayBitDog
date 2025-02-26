@@ -35,7 +35,7 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(DoomsdayBitDog DoomsdayBitDog.c ssd1306.c led_matrix.c)
+add_executable(DoomsdayBitDog DoomsdayBitDog.c inc/ssd1306.c led_matrix.c)
 
 pico_set_program_name(DoomsdayBitDog "DoomsdayBitDog")
 pico_set_program_version(DoomsdayBitDog "0.1")
@@ -51,7 +51,6 @@ target_link_libraries(DoomsdayBitDog
         pico_stdlib hardware_uart hardware_i2c)
         pico_enable_stdio_usb(DoomsdayBitDog 1)
         pico_enable_stdio_uart(DoomsdayBitDog 0)
-
         pico_add_extra_outputs(DoomsdayBitDog)
 
         # Add the standard include files to the build
@@ -60,7 +59,13 @@ target_include_directories(DoomsdayBitDog PRIVATE
 )
 
 # Add any user requested libraries
-target_link_libraries(DoomsdayBitDog  pico_stdlib hardware_i2c hardware_adc hardware_pwm hardware_pio hardware_uart
+target_link_libraries(DoomsdayBitDog 
+    pico_stdlib
+    hardware_i2c
+    hardware_adc
+    hardware_pwm
+    hardware_pio
+    hardware_uart
         )
 
 pico_add_extra_outputs(DoomsdayBitDog)
