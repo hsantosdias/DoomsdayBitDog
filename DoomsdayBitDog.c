@@ -7,6 +7,8 @@
 #include "hardware/i2c.h" // Inclui biblioteca de funções de I2C (i2c_init, i2c_write_blocking, etc)
 #include "hardware/irq.h" // Inclui biblioteca de funções de interrupção (IRQ)
 #include "hardware/uart.h" // Inclui biblioteca de funções de UART (uart_init, uart_getc, etc)
+#include "hardware/pwm.h" // Inclui biblioteca de funções de PWM (pwm_init, pwm_set_gpio_level, etc)
+#include "hardware/gpio.h" // Inclui biblioteca de funções de GPIO (gpio_init, gpio_put, etc)
 
 //bibliotecas adicionais fornecidas inicialmente pelo professor Wilson
 #include "inc/ssd1306.h" // Inclui biblioteca de funções do display OLED SSD1306
@@ -44,6 +46,15 @@
 #define UART_TX_PIN 0 // Define o pino TX da UART - GPIO 0
 #define UART_RX_PIN 1 // Define o pino RX da UART - GPIO 1
 
+// GPIOs para S.O.S
+#define BUZZER_PIN 21
+
+// Parâmetros para o código Morse do S.O.S
+#define DOT_DURATION 200   // Duração de um ponto (200 ms)
+#define DASH_DURATION 600  // Duração de um traço (600 ms)
+#define PAUSE_DURATION 200 // Pausa entre pontos e traços (200 ms)
+#define LETTER_PAUSE 600   // Pausa entre letras (600 ms)
+
 // Definições para LEDs e botões
 #define LED_PIN_R 13    // LED Vermelho 
 #define LED_PIN_B 12    // LED Azul
@@ -74,6 +85,7 @@ void desenhar_opcoes();
 void desenhar_retangulo_selecao();
 void desenhar_setas();
 void exibir_mensagem(const char *linha1, const char *linha2);
+void sinal_sos();
 
 // Prototipação de funções de histórico do menu
 typedef struct Menu Menu;
@@ -133,6 +145,7 @@ Menu submenu_navegacao[] = {
 Menu submenu_alertas[] = {
     {"Mensagens",   NULL, 0, mostrar_mensagens},
     {"Deteccao Som", NULL, 0, detectar_som},
+    {"Sinal S.O.S",   NULL, 0, sinal_sos},    
     {"Voltar",      NULL, 0, voltar_menu_principal}
 };
 
@@ -488,6 +501,78 @@ void detectar_som() {
 }
 
 
+#include "hardware/pwm.h"
+
+// Inicializa o Buzzer usando PWM
+void inicializar_buzzer() {
+    gpio_set_function(BUZZER_PIN, GPIO_FUNC_PWM);
+    uint slice_num = pwm_gpio_to_slice_num(BUZZER_PIN);
+    pwm_set_wrap(slice_num, 2500); // Configura a frequência
+    pwm_set_enabled(slice_num, true);
+}
+
+// Gera um som no Buzzer com a duração especificada
+void tocar_buzzer(int duracao) {
+    uint slice_num = pwm_gpio_to_slice_num(BUZZER_PIN);
+    pwm_set_gpio_level(BUZZER_PIN, 1250); // 50% do ciclo de trabalho
+    sleep_ms(duracao);
+    pwm_set_gpio_level(BUZZER_PIN, 0);    // Desliga o som
+}
+
+// Pisca o LED
+void piscar_led(int duracao) {
+    gpio_put(LED_PIN_R, 1);
+    sleep_ms(duracao);
+    gpio_put(LED_PIN_R, 0);
+}
+
+// Função para ponto (.)
+void ponto() {
+    tocar_buzzer(DOT_DURATION);
+    piscar_led(DOT_DURATION);
+    sleep_ms(PAUSE_DURATION);
+}
+
+// Função para traço (-)
+void traco() {
+    tocar_buzzer(DASH_DURATION);
+    piscar_led(DASH_DURATION);
+    sleep_ms(PAUSE_DURATION);
+}
+
+// Função principal para o sinal S.O.S
+void sinal_sos() {
+    // Mensagem no OLED
+    exibir_mensagem("Enviando S.O.S", "Aguarde ...");
+
+    // Loop para repetir o S.O.S 3 vezes
+    for (int i = 0; i < 3; i++) {
+        // Letra S: ...
+        ponto();
+        ponto();
+        ponto();
+        sleep_ms(LETTER_PAUSE);
+
+        // Letra O: ---
+        traco();
+        traco();
+        traco();
+        sleep_ms(LETTER_PAUSE);
+
+        // Letra S: ...
+        ponto();
+        ponto();
+        ponto();
+        sleep_ms(LETTER_PAUSE * 2); // Pausa maior entre as palavras
+    }
+
+    // Finaliza o som e LED
+    pwm_set_gpio_level(BUZZER_PIN, 0);
+    gpio_put(LED_PIN_R, 0);
+
+    voltar_menu_principal();
+}
+
 
 
 void mostrar_mensagens() {
@@ -681,6 +766,12 @@ int main() {
     iniciar_oled();
     // animacao_inicial(); // Fase de testes
     inicializar_sensores(); // Inicializa os sensores e os históricos
+    inicializar_buzzer();
+
+    // Inicializa o LED
+    gpio_init(LED_PIN_R);
+    gpio_set_dir(LED_PIN_R, GPIO_OUT);
+    gpio_put(LED_PIN_R, 0);
 
     menu_atual = menu_principal;
     num_opcoes = NUM_OPCOES_PRINCIPAL;
