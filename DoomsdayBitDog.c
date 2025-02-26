@@ -233,9 +233,9 @@ void mostrar_menu() {
 
 
 void mostrar_temperatura() {
-    float temperatura = obterTemperatura();
+    DadosSensores dados = obter_dados_sensores();
     char buffer[20];
-    snprintf(buffer, sizeof(buffer), "Temp: %.2f C", temperatura);
+    snprintf(buffer, sizeof(buffer), "Temp: %.2f C", dados.temperatura.media);
 
     ssd1306_fill(&ssd, false);  // Limpa a tela
     ssd1306_draw_string(&ssd, "Temperatura:", 0, 0);
@@ -246,16 +246,18 @@ void mostrar_temperatura() {
 }
 
 
-/*
-// Funções de Ação do Menu
-void mostrar_temperatura() {
-    exibir_mensagem("Temperatura:", "25.5 C");
-    voltar_menu_principal();  // Volta ao menu principal após exibir a mensagem 
-}
-*/
 
 void mostrar_umidade() {
-    exibir_mensagem("Umidade:", "65%");
+    DadosSensores dados = obter_dados_sensores();
+    char buffer[20];
+    snprintf(buffer, sizeof(buffer), "Umid: %.2f%%", dados.umidade.media);
+
+    ssd1306_fill(&ssd, false);  // Limpa a tela
+    ssd1306_draw_string(&ssd, "Umidade:", 0, 0);
+    ssd1306_draw_string(&ssd, buffer, 0, 16);
+    ssd1306_send_data(&ssd);
+    sleep_ms(2000);
+    voltar_menu_principal();
 }
 
 void mostrar_posicao() {
@@ -436,7 +438,8 @@ int main() {
     iniciar_joystick();
     iniciar_oled();
     // animacao_inicial(); // Fase de testes
-
+    inicializar_sensores(); // Inicializa os sensores e os históricos
+    
     menu_atual = menu_principal;
     num_opcoes = NUM_OPCOES_PRINCIPAL;
     last_interaction_time = get_absolute_time();
