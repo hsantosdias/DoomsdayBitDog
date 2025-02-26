@@ -81,3 +81,33 @@ DadosSensores obter_dados_sensores() {
 
     return dados;
 }
+
+
+// Função para ler o estado do Joystick e determinar a direção
+void ler_joystick(char *direcao_x, char *direcao_y) {
+    // Leitura do eixo X
+    adc_select_input(1); // ADC 1 é o eixo X (GPIO 26)
+    uint16_t adc_x = adc_read();
+
+    // Leitura do eixo Y
+    adc_select_input(0); // ADC 0 é o eixo Y (GPIO 27)
+    uint16_t adc_y = adc_read();
+
+    // Determina a direção no eixo X
+    if (adc_x > 3000) {
+        snprintf(direcao_x, 10, "Leste");
+    } else if (adc_x < 1000) {
+        snprintf(direcao_x, 10, "Oeste");
+    } else {
+        snprintf(direcao_x, 10, "Centro");
+    }
+
+    // Determina a direção no eixo Y
+    if (adc_y > 3000) {
+        snprintf(direcao_y, 10, "Norte");
+    } else if (adc_y < 1000) {
+        snprintf(direcao_y, 10, "Sul");
+    } else {
+        snprintf(direcao_y, 10, "Centro");
+    }
+}

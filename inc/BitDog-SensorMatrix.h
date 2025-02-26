@@ -23,4 +23,10 @@ void inicializar_sensores();
 // Obtém as leituras e calcula as médias móveis
 DadosSensores obter_dados_sensores();
 
+// Declaração das funções do joystick
+void ler_joystick(char *direcao_x, char *direcao_y);
+
+// Declaração da função haversine
+double haversine(double lat1, double lon1, double lat2, double lon2);
+
 #endif // BITDOG_SENSORMATRIX_H

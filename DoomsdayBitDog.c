@@ -91,6 +91,7 @@ void detectar_som(void);
 void mostrar_mensagens(void);
 void configurar_sistema(void);
 void mostrar_informacoes(void);
+void mostrar_direcao_joystick(void);
 
 // Prototipação da função modificar_valor
 int modificar_valor(int valor_atual, int min, int max);
@@ -122,8 +123,9 @@ Menu submenu_monitoramento[] = {
 // Submenu para GeoLocalizacao
 Menu submenu_navegacao[] = {
     {"Posicao",     NULL, 0, mostrar_posicao},
-    {"Direcao", NULL, 0, mostrar_direcao},
-    {"Distancia",  NULL, 0, mostrar_distancia},
+    {"Direcao",     NULL, 0, mostrar_direcao},
+    {"Distancia",   NULL, 0, mostrar_distancia},
+    {"Joystick",    NULL, 0, mostrar_direcao_joystick},
     {"Voltar",      NULL, 0, voltar_menu_principal}
 };
 
@@ -312,6 +314,32 @@ void mostrar_luminosidade() {
     mostrar_menu();
 }
 
+
+void mostrar_direcao_joystick() {
+    char direcao_x[10];
+    char direcao_y[10];
+
+    absolute_time_t start_time = get_absolute_time();
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 3000000) { // 3 segundos
+        
+        // Lê o estado do Joystick
+        ler_joystick(direcao_x, direcao_y);
+
+        ssd1306_fill(&ssd, false);  // Limpa a tela
+        
+        // Exibe a Direção do Joystick
+        ssd1306_draw_string(&ssd, "Eixo X:", 0, 0);
+        ssd1306_draw_string(&ssd, direcao_x, 64, 0);  // Leste/Oeste/Centro
+        
+        ssd1306_draw_string(&ssd, "Eixo Y:", 0, 16);
+        ssd1306_draw_string(&ssd, direcao_y, 64, 16); // Norte/Sul/Centro
+        
+        ssd1306_send_data(&ssd);
+
+        sleep_ms(500); // Atualiza a cada 500 ms para mostrar variação
+    }
+    voltar_menu_principal();   // Volta ao menu principal após 3 segundos
+}
 
 
 
