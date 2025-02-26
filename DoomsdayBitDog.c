@@ -465,6 +465,7 @@ void detectar_som() {
     absolute_time_t start_time = get_absolute_time();
     while (absolute_time_diff_us(start_time, get_absolute_time()) < 10000000) { // 10 segundos
         
+        adc_init();
         // Lê o nível de som do microfone interno
         adc_select_input(2); // Microfone no ADC 2 (GPIO 28)
         uint16_t resultado = adc_read();
