@@ -54,6 +54,8 @@ void inicializar_sensores() {
     // Inicialização do ADC
     adc_init();
     adc_set_temp_sensor_enabled(true);
+    
+    adc_gpio_init(28);  // Microfone - ADC 2
 
     inicializar_historico(&hist_temp);
     inicializar_historico(&hist_umid);

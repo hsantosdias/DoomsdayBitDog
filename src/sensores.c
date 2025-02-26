@@ -109,32 +109,15 @@ void exibirPosicaoGeografica(PosicaoGeografica pos) {
 
 // NOVOS SENSORES COM COMPORTAMENTO MAIS REALISTA
 
-// Simula um sensor de som com variação gradual
-float obterNivelSom(void) {
-    // Ambiente normal: 30-50 dB
-    // Conversa: 50-65 dB
-    // Ambiente ruidoso: 65-85 dB
-    // Muito alto: 85-100 dB
-    
-    // Comportamento mais realista: o som varia gradualmente
-    float variacao = ((float)rand() / (float)RAND_MAX) * 5.0f - 2.0f; // -2 a +3 dB
-    float novo_som = ultima_som + variacao;
-    
-    // A cada 50 chamadas aproximadamente, simula um pico de ruído
-    if (rand() % 50 == 0) {
-        novo_som += 20.0f + ((float)rand() / (float)RAND_MAX) * 30.0f;
-    }
-    
-    // Limites realistas
-    novo_som = limitar(novo_som, 30.0f, 100.0f);
-    
-    // Decaimento natural do som para o nível ambiente
-    if (novo_som > 50.0f) {
-        novo_som = novo_som * 0.95f + 45.0f * 0.05f; // Tende a voltar para 45 dB
-    }
-    
-    ultima_som = novo_som;
-    return novo_som;
+
+// Função para obter o nível de som (Microfone Interno)
+float obterNivelSom() {
+    adc_select_input(ADC_CANAL_MICROFONE);
+    uint16_t resultado = adc_read();
+    const float conversao = 3.3f / (1 << 12);
+    float tensao = resultado * conversao;
+    float nivel_som = tensao * 100.0f;  // Ajuste de escala conforme necessário
+    return nivel_som;
 }
 
 // Simula um sensor de movimento com padrão mais realista

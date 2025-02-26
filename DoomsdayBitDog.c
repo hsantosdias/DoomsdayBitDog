@@ -81,9 +81,13 @@ void mostrar_temperatura(void);
 void mostrar_umidade(void);
 void mostrar_luminosidade(void);
 void mostrar_posicao(void);
+void detectar_som(void);
 void mostrar_mensagens(void);
 void configurar_sistema(void);
 void mostrar_informacoes(void);
+
+// Prototipação da função modificar_valor
+int modificar_valor(int valor_atual, int min, int max);
 
 // Estrutura do Menu – com ponteiro para ação e submenus
 struct Menu {
@@ -118,6 +122,7 @@ Menu submenu_navegacao[] = {
 // Submenu para Alertas e Mensagens
 Menu submenu_alertas[] = {
     {"Mensagens",   NULL, 0, mostrar_mensagens},
+    {"Deteccao Som", NULL, 0, detectar_som},
     {"Voltar",      NULL, 0, voltar_menu_principal}
 };
 
@@ -323,6 +328,47 @@ void mostrar_posicao() {
 }
 
 
+int limite_som = 50; // Limite inicial de 50%
+
+void detectar_som() {
+    absolute_time_t start_time = get_absolute_time();
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 10000000) { // 10 segundos
+        
+        // Lê o nível de som do microfone interno
+        adc_select_input(2); // Microfone no ADC 2 (GPIO 28)
+        uint16_t resultado = adc_read();
+        const float conversao = 3.3f / (1 << 12);
+        float tensao = resultado * conversao;
+        float nivel_som = tensao * 100.0f;  // Ajuste de escala conforme necessário
+
+        // Ajusta o limite de som com o Joystick X
+        limite_som = modificar_valor(limite_som, 0, 100);
+
+        char buffer_som[20];
+        snprintf(buffer_som, sizeof(buffer_som), "Som: %.2f %%", nivel_som);
+
+        char buffer_limite[20];
+        snprintf(buffer_limite, sizeof(buffer_limite), "Limite: %d %%", limite_som);
+
+        ssd1306_fill(&ssd, false);  // Limpa a tela
+        ssd1306_draw_string(&ssd, "Deteccao de Som:", 0, 0);
+        ssd1306_draw_string(&ssd, buffer_som, 0, 16);
+        ssd1306_draw_string(&ssd, buffer_limite, 0, 32);
+
+        // Verifica se o som ultrapassou o limite
+        if (nivel_som > limite_som) {
+            ssd1306_draw_string(&ssd, "ALERTA: SOM ALTO!", 0, 48);
+        }
+
+        ssd1306_send_data(&ssd);
+
+        sleep_ms(100); // Atualiza a cada 100 ms
+    }
+    voltar_menu_principal();   // Volta ao menu principal após 10 segundos
+}
+
+
+
 void mostrar_mensagens() {
     ssd1306_fill(&ssd, false);
     ssd1306_draw_string(&ssd, "Sem mensagens", 10, 20);
@@ -419,6 +465,26 @@ void navegar_menu() {
         voltar_menu_principal();
     }
 }
+
+
+// Função para modificar valores usando o Joystick X
+int modificar_valor(int valor_atual, int min, int max) {
+    adc_select_input(1); // Joystick X é o ADC 1 (GPIO 26)
+    uint16_t adc_value_x = adc_read();
+    printf("Joystick X: %d\n", adc_value_x);
+
+    if (adc_value_x < 1000 && valor_atual > min) {
+        valor_atual--;
+        sleep_ms(200);  // Debounce para evitar múltiplos decrementos
+    }
+    if (adc_value_x > 3000 && valor_atual < max) {
+        valor_atual++;
+        sleep_ms(200);  // Debounce para evitar múltiplos incrementos
+    }
+    
+    return valor_atual;
+}
+
 
 // Retorna ao Menu Principal (limpa o histórico se necessário)
 void voltar_menu_principal() {
