@@ -143,9 +143,8 @@ Menu submenu_monitoramento[] = {
 // Submenu para GeoLocalizacao
 Menu submenu_navegacao[] = {
     {"Posicao",     NULL, 0, mostrar_posicao},
-    {"Direcao",     NULL, 0, mostrar_direcao},
+    {"Direcao",     NULL, 0, mostrar_direcao_joystick},
     {"Distancia",   NULL, 0, mostrar_distancia},
-    {"Joystick",    NULL, 0, mostrar_direcao_joystick},
     {"Voltar",      NULL, 0, voltar_menu_principal}
 };
 
@@ -465,7 +464,7 @@ void detectar_som() {
     absolute_time_t start_time = get_absolute_time();
     while (absolute_time_diff_us(start_time, get_absolute_time()) < 10000000) { // 10 segundos
         
-        adc_init();
+
         // Lê o nível de som do microfone interno
         adc_select_input(2); // Microfone no ADC 2 (GPIO 28)
         uint16_t resultado = adc_read();
@@ -632,7 +631,7 @@ void mostrar_informacoes() {
 void iniciar_joystick() {
     printf("Inicializando Joystick...\n");
     adc_init();
-    adc_gpio_init(JOYSTICK_X_PIN);
+    //adc_gpio_init(JOYSTICK_X_PIN);
     adc_gpio_init(JOYSTICK_Y_PIN);
 
     gpio_init(JOYSTICK_PB);
@@ -675,6 +674,7 @@ void navegar_menu() {
             mostrar_menu();
         }
 
+      /*
         // Processa movimento do joystick (eixo X)
         if (adc_value_x < 1000) {  // Direita
             opcao_atual = (opcao_atual + 1) % num_opcoes;
@@ -683,7 +683,7 @@ void navegar_menu() {
         if (adc_value_x > 3000) {  // Esquerda
             opcao_atual = (opcao_atual - 1 + num_opcoes) % num_opcoes;
             printf("Navegando para Direita - Opcao: %d\n", opcao_atual);
-        }
+        } */
     }
 
     // Aplica debounce para o botão do joystick
