@@ -233,32 +233,44 @@ void mostrar_menu() {
 
 
 void mostrar_temperatura() {
-    DadosSensores dados = obter_dados_sensores();
-    char buffer[20];
-    snprintf(buffer, sizeof(buffer), "Temp: %.2f C", dados.temperatura.media);
+    absolute_time_t start_time = get_absolute_time();
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 3000000) { // 3 segundos
+        
+        DadosSensores dados = obter_dados_sensores();
+        char buffer[20];
+        snprintf(buffer, sizeof(buffer), "Temp: %.2f C", dados.temperatura.atual);
 
-    ssd1306_fill(&ssd, false);  // Limpa a tela
-    ssd1306_draw_string(&ssd, "Temperatura:", 0, 0);
-    ssd1306_draw_string(&ssd, buffer, 0, 16);
-    ssd1306_send_data(&ssd);
-    sleep_ms(2000);
-    voltar_menu_principal();   // Volta ao menu principal após exibir a mensagem
+        ssd1306_fill(&ssd, false);  // Limpa a tela
+        ssd1306_draw_string(&ssd, "Temperatura:", 0, 0);
+        ssd1306_draw_string(&ssd, buffer, 0, 16);
+        ssd1306_send_data(&ssd);
+
+        sleep_ms(500); // Atualiza a cada 500 ms para mostrar variação
+    }
+    voltar_menu_principal();   // Volta ao menu principal após 3 segundos
 }
+
 
 
 
 void mostrar_umidade() {
-    DadosSensores dados = obter_dados_sensores();
-    char buffer[20];
-    snprintf(buffer, sizeof(buffer), "Umid: %.2f%%", dados.umidade.media);
+    absolute_time_t start_time = get_absolute_time();
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 3000000) { // 3 segundos
+        
+        DadosSensores dados = obter_dados_sensores();
+        char buffer[20];
+        snprintf(buffer, sizeof(buffer), "Umid: %.2f%%", dados.umidade.atual);
 
-    ssd1306_fill(&ssd, false);  // Limpa a tela
-    ssd1306_draw_string(&ssd, "Umidade:", 0, 0);
-    ssd1306_draw_string(&ssd, buffer, 0, 16);
-    ssd1306_send_data(&ssd);
-    sleep_ms(2000);
-    voltar_menu_principal();
+        ssd1306_fill(&ssd, false);  // Limpa a tela
+        ssd1306_draw_string(&ssd, "Umidade:", 0, 0);
+        ssd1306_draw_string(&ssd, buffer, 0, 16);
+        ssd1306_send_data(&ssd);
+
+        sleep_ms(500); // Atualiza a cada 500 ms para mostrar variação
+    }
+    voltar_menu_principal();   // Volta ao menu principal após 3 segundos
 }
+
 
 void mostrar_posicao() {
     ssd1306_fill(&ssd, false);
@@ -439,7 +451,7 @@ int main() {
     iniciar_oled();
     // animacao_inicial(); // Fase de testes
     inicializar_sensores(); // Inicializa os sensores e os históricos
-    
+
     menu_atual = menu_principal;
     num_opcoes = NUM_OPCOES_PRINCIPAL;
     last_interaction_time = get_absolute_time();
