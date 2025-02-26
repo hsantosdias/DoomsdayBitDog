@@ -245,17 +245,21 @@ void mostrar_temperatura() {
         
         DadosSensores dados = obter_dados_sensores();
         char buffer[20];
-        snprintf(buffer, sizeof(buffer), "Temp: %.2f C", dados.temperatura.atual);
+        snprintf(buffer, sizeof(buffer), "%.2f C", dados.temperatura.atual);
 
         ssd1306_fill(&ssd, false);  // Limpa a tela
+        
+        // Exibe Temperatura
         ssd1306_draw_string(&ssd, "Temperatura:", 0, 0);
         ssd1306_draw_string(&ssd, buffer, 0, 16);
+        
         ssd1306_send_data(&ssd);
 
         sleep_ms(500); // Atualiza a cada 500 ms para mostrar variação
     }
     voltar_menu_principal();   // Volta ao menu principal após 3 segundos
 }
+
 
 
 
@@ -305,21 +309,26 @@ void mostrar_posicao() {
     absolute_time_t start_time = get_absolute_time();
     while (absolute_time_diff_us(start_time, get_absolute_time()) < 3000000) { // 3 segundos
         
-        DadosSensores dados = obter_dados_sensores();
         PosicaoGeografica posicao = obterPosicaoGeografica();
 
         char buffer_lat[20];
         char buffer_lon[20];
-        snprintf(buffer_lat, sizeof(buffer_lat), "Lat:%d %d' %.2f\"", 
+        snprintf(buffer_lat, sizeof(buffer_lat), "%d°%d'%.2f\"", 
                  posicao.latitude.graus, posicao.latitude.minutos, posicao.latitude.segundos);
 
-        snprintf(buffer_lon, sizeof(buffer_lon), "Lon:%d %d' %.2f\"", 
+        snprintf(buffer_lon, sizeof(buffer_lon), "%d°%d'%.2f\"", 
                  posicao.longitude.graus, posicao.longitude.minutos, posicao.longitude.segundos);
 
         ssd1306_fill(&ssd, false);  // Limpa a tela
-        ssd1306_draw_string(&ssd, "Posicao:", 0, 0);
+        
+        // Exibe Latitude
+        ssd1306_draw_string(&ssd, "Latitude:", 0, 0);
         ssd1306_draw_string(&ssd, buffer_lat, 0, 16);
-        ssd1306_draw_string(&ssd, buffer_lon, 0, 32);
+        
+        // Exibe Longitude
+        ssd1306_draw_string(&ssd, "Longitude:", 0, 32);
+        ssd1306_draw_string(&ssd, buffer_lon, 0, 48);
+
         ssd1306_send_data(&ssd);
 
         sleep_ms(500); // Atualiza a cada 500 ms para mostrar variação
@@ -328,7 +337,10 @@ void mostrar_posicao() {
 }
 
 
+
 int limite_som = 50; // Limite inicial de 50%
+int historico_som[5] = {0}; // Buffer para média móvel
+int indice_som = 0;
 
 void detectar_som() {
     absolute_time_t start_time = get_absolute_time();
@@ -344,8 +356,18 @@ void detectar_som() {
         // Ajusta o limite de som com o Joystick X
         limite_som = modificar_valor(limite_som, 0, 100);
 
+        // Média móvel para suavização
+        historico_som[indice_som] = nivel_som;
+        indice_som = (indice_som + 1) % 5;
+
+        float soma = 0;
+        for (int i = 0; i < 5; i++) {
+            soma += historico_som[i];
+        }
+        float media_som = soma / 5;
+
         char buffer_som[20];
-        snprintf(buffer_som, sizeof(buffer_som), "Som: %.2f %%", nivel_som);
+        snprintf(buffer_som, sizeof(buffer_som), "Som: %.2f %%", media_som);
 
         char buffer_limite[20];
         snprintf(buffer_limite, sizeof(buffer_limite), "Limite: %d %%", limite_som);
@@ -355,8 +377,8 @@ void detectar_som() {
         ssd1306_draw_string(&ssd, buffer_som, 0, 16);
         ssd1306_draw_string(&ssd, buffer_limite, 0, 32);
 
-        // Verifica se o som ultrapassou o limite
-        if (nivel_som > limite_som) {
+        // Verifica se o som ultrapassou o limite (com histerese)
+        if (media_som > limite_som + 5) {
             ssd1306_draw_string(&ssd, "ALERTA: SOM ALTO!", 0, 48);
         }
 
@@ -366,6 +388,7 @@ void detectar_som() {
     }
     voltar_menu_principal();   // Volta ao menu principal após 10 segundos
 }
+
 
 
 

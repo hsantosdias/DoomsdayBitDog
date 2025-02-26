@@ -52,9 +52,9 @@ float adicionar_leitura(HistoricoLeituras* historico, float leitura) {
 // Inicializa os históricos e o ADC
 void inicializar_sensores() {
     // Inicialização do ADC
-    adc_init();
-    adc_set_temp_sensor_enabled(true);
-    
+    adc_init(); // Inicializa o ADC
+    adc_set_temp_sensor_enabled(true);  // Habilita o sensor interno de temperatura
+    adc_select_input(4);                // Canal 4 é o sensor interno de temperatura
     adc_gpio_init(28);  // Microfone - ADC 2
 
     inicializar_historico(&hist_temp);

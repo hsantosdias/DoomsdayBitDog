@@ -35,18 +35,22 @@ float variacaoAleatoria(float base, float variacao) {
 }
 
 // Função que simula a leitura da temperatura com variação realista
-float obterTemperatura(void) {
-    // Varia no máximo SIMULACAO_VAR_TEMP graus para mais ou para menos
-    float nova_temp = variacaoAleatoria(ultima_temp, SIMULACAO_VAR_TEMP);
-    
-    // Limita os valores dentro do intervalo realista
-    nova_temp = limitar(nova_temp, SIMULACAO_INTERVALO_TEMP_MIN, SIMULACAO_INTERVALO_TEMP_MAX);
-    
-    // Atualiza o último valor
-    ultima_temp = nova_temp;
-    
-    return nova_temp;
+// Função para obter a temperatura do sensor interno do RP2040
+float obterTemperatura() {
+    const float VOLTAGE_REF = 3.3;      // Referência de tensão do ADC (3.3V)
+    const float ADC_RESOLUTION = 4095.0; // Resolução do ADC de 12 bits (0 a 4095)
+    const float TEMP_COEFFICIENT = 27.0; // Offset de temperatura (27°C a 0.706V)
+    const float VOLTAGE_AT_27 = 0.706;  // Tensão de saída a 27°C
+    const float SLOPE = 0.001721;       // Variação de tensão por grau Celsius
+
+    adc_select_input(4); // Canal 4 é o sensor interno de temperatura
+    uint16_t adc_raw = adc_read();
+    float adc_voltage = (adc_raw / ADC_RESOLUTION) * VOLTAGE_REF;
+    float temperatura = TEMP_COEFFICIENT - (adc_voltage - VOLTAGE_AT_27) / SLOPE;
+
+    return temperatura;
 }
+
 
 // Função que simula a leitura da umidade com variação realista
 float obterUmidade(void) {
