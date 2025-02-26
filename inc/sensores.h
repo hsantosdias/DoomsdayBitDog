@@ -3,6 +3,7 @@
 
 #define ADC_CANAL_MICROFONE 2  // Microfone interno no GPIO 28 (ADC 2)
 
+
 // Funções de medição e exibição de temperatura e umidade
 float obterTemperatura(void);
 float obterUmidade(void);

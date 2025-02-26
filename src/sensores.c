@@ -4,6 +4,7 @@
 #include "pico/stdlib.h"
 #include "hardware/adc.h"
 #include "sensores.h"
+#include <math.h>
 
 // Constantes para simulação realista
 #define SIMULACAO_INTERVALO_TEMP_MIN 18.0f
@@ -13,6 +14,7 @@
 #define SIMULACAO_VAR_TEMP 0.3f
 #define SIMULACAO_VAR_UMID 1.0f
 
+
 // Variáveis estáticas para manter estado entre chamadas
 static float ultima_temp = 25.0f;
 static float ultima_umid = 65.0f;
@@ -20,6 +22,10 @@ static float ultima_som = 45.0f;
 static float ultima_lum = 500.0f;
 static int contagem_mov = 0;
 static int status_chama = 0;
+
+// Declaração da função haversine
+double haversine(double lat1, double lon1, double lat2, double lon2);
+
 
 // Função auxiliar para limitar valores entre mínimo e máximo
 float limitar(float valor, float min, float max) {
@@ -208,4 +214,20 @@ void apresentarNovosSensores(void) {
     mostrarMovimento(movimento);
     mostrarChama(chama);
     mostrarLuminosidade(luminosidade);
+}
+
+
+
+
+double haversine(double lat1, double lon1, double lat2, double lon2) {
+    double dLat = (lat2 - lat1) * (M_PI / 180.0);
+    double dLon = (lon2 - lon1) * (M_PI / 180.0);
+
+    lat1 = lat1 * (M_PI / 180.0);
+    lat2 = lat2 * (M_PI / 180.0);
+
+    double a = pow(sin(dLat / 2), 2) + pow(sin(dLon / 2), 2) * cos(lat1) * cos(lat2);
+    double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+    double distancia = 6371 * c; // 6371 é o raio da Terra em km
+    return distancia;
 }

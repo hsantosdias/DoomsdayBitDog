@@ -1,6 +1,7 @@
 #include <stdio.h> // Inclui biblioteca padrão de E/S em C (printf, scanf, etc) 
 #include <stdlib.h> // Inclui biblioteca padrão de funções em C (malloc, free, etc)
 #include <string.h> // Inclui biblioteca de funções de strings em C (strlen, strcmp, etc)
+#include <math.h> // Inclui biblioteca de funções matemáticas em C (sin, cos, etc)
 #include "pico/stdlib.h" // Inclui biblioteca de funções do Pico (gpio_init, sleep_ms, etc)
 #include "hardware/adc.h" // Inclui biblioteca de funções de ADC (adc_init, adc_gpio_init, etc)
 #include "hardware/i2c.h" // Inclui biblioteca de funções de I2C (i2c_init, i2c_write_blocking, etc)
@@ -57,6 +58,9 @@
 // Estrutura do OLED
 ssd1306_t ssd;
 
+int limite_som = 50; // Limite inicial de 50%
+int historico_som[5] = {0}; // Buffer para média móvel
+int indice_som = 0; // Índice do buffer de som
 
 // Prototipagem de Funções para o Menu e Navegação do Menu Principal
 void iniciar_oled();
@@ -81,6 +85,8 @@ void mostrar_temperatura(void);
 void mostrar_umidade(void);
 void mostrar_luminosidade(void);
 void mostrar_posicao(void);
+void mostrar_direcao(void);
+void mostrar_distancia(void);
 void detectar_som(void);
 void mostrar_mensagens(void);
 void configurar_sistema(void);
@@ -115,7 +121,9 @@ Menu submenu_monitoramento[] = {
 
 // Submenu para GeoLocalizacao
 Menu submenu_navegacao[] = {
-    {"Posição",     NULL, 0, mostrar_posicao},
+    {"Posicao",     NULL, 0, mostrar_posicao},
+    {"Direcao", NULL, 0, mostrar_direcao},
+    {"Distancia",  NULL, 0, mostrar_distancia},
     {"Voltar",      NULL, 0, voltar_menu_principal}
 };
 
@@ -135,10 +143,10 @@ Menu submenu_configuracoes[] = {
 
 // Menu Principal – o campo num_submenus indica quantos itens o submenu terá
 Menu menu_principal[] = {
-    {"Info Ambiental", submenu_monitoramento, ARRAY_SIZE(submenu_monitoramento), NULL},
-    {"GeoLocalizacao", submenu_navegacao,     ARRAY_SIZE(submenu_navegacao),     NULL},
-    {"Alert Mensagems",submenu_alertas,       ARRAY_SIZE(submenu_alertas),       NULL},
-    {"Config Sistema", submenu_configuracoes, ARRAY_SIZE(submenu_configuracoes), NULL}
+    {"Info. Ambientais", submenu_monitoramento, ARRAY_SIZE(submenu_monitoramento), NULL},
+    {"GPS e Rastreio", submenu_navegacao,     ARRAY_SIZE(submenu_navegacao),     NULL},
+    {"Alertas Ativos",submenu_alertas,       ARRAY_SIZE(submenu_alertas),       NULL},
+    {"Config. Sistema", submenu_configuracoes, ARRAY_SIZE(submenu_configuracoes), NULL}
 };
 
 // Variáveis globais para navegação
@@ -257,7 +265,8 @@ void mostrar_temperatura() {
 
         sleep_ms(500); // Atualiza a cada 500 ms para mostrar variação
     }
-    voltar_menu_principal();   // Volta ao menu principal após 3 segundos
+   // voltar_menu_principal();   // Volta ao menu principal após 3 segundos
+   mostrar_menu();  
 }
 
 
@@ -279,7 +288,8 @@ void mostrar_umidade() {
 
         sleep_ms(500); // Atualiza a cada 500 ms para mostrar variação
     }
-    voltar_menu_principal();   // Volta ao menu principal após 3 segundos
+    //voltar_menu_principal();   // Volta ao menu principal após 3 segundos
+    mostrar_menu();
 }
 
 
@@ -298,7 +308,8 @@ void mostrar_luminosidade() {
 
         sleep_ms(500); // Atualiza a cada 500 ms para mostrar variação
     }
-    voltar_menu_principal();   // Volta ao menu principal após 3 segundos
+    //voltar_menu_principal();   // Volta ao menu principal após 3 segundos
+    mostrar_menu();
 }
 
 
@@ -333,14 +344,73 @@ void mostrar_posicao() {
 
         sleep_ms(500); // Atualiza a cada 500 ms para mostrar variação
     }
-    voltar_menu_principal();   // Volta ao menu principal após 3 segundos
+   // voltar_menu_principal();   // Volta ao menu principal após 3 segundos
+   mostrar_menu();
+}
+
+
+void mostrar_direcao() {
+    char buffer[20];
+    // Exemplo básico: Pegando a direção do movimento com base na variação de latitude e longitude
+    PosicaoGeografica posicao_atual = obterPosicaoGeografica();
+    static PosicaoGeografica posicao_anterior = {0, 0, 0, 0, 0, 0};
+
+    float delta_lat = posicao_atual.latitude.segundos - posicao_anterior.latitude.segundos;
+    float delta_lon = posicao_atual.longitude.segundos - posicao_anterior.longitude.segundos;
+
+    if (fabs(delta_lat) > fabs(delta_lon)) {
+        if (delta_lat > 0) {
+            snprintf(buffer, sizeof(buffer), "Norte");
+        } else {
+            snprintf(buffer, sizeof(buffer), "Sul");
+        }
+    } else {
+        if (delta_lon > 0) {
+            snprintf(buffer, sizeof(buffer), "Leste");
+        } else {
+            snprintf(buffer, sizeof(buffer), "Oeste");
+        }
+    }
+
+    posicao_anterior = posicao_atual;
+
+    ssd1306_fill(&ssd, false);  // Limpa a tela
+    ssd1306_draw_string(&ssd, "Direcao:", 0, 0);
+    ssd1306_draw_string(&ssd, buffer, 0, 16);
+    ssd1306_send_data(&ssd);
+
+    sleep_ms(2000);
+    voltar_menu_principal();
 }
 
 
 
-int limite_som = 50; // Limite inicial de 50%
-int historico_som[5] = {0}; // Buffer para média móvel
-int indice_som = 0;
+
+void mostrar_distancia() {
+    char buffer[20];
+
+    PosicaoGeografica posicao_atual = obterPosicaoGeografica();
+    static PosicaoGeografica posicao_inicial = {14, 51, 57.0, 40, 50, 20.0}; // Coordenadas de referência
+
+    double distancia = haversine(
+        posicao_inicial.latitude.graus + posicao_inicial.latitude.minutos / 60.0 + posicao_inicial.latitude.segundos / 3600.0,
+        posicao_inicial.longitude.graus + posicao_inicial.longitude.minutos / 60.0 + posicao_inicial.longitude.segundos / 3600.0,
+        posicao_atual.latitude.graus + posicao_atual.latitude.minutos / 60.0 + posicao_atual.latitude.segundos / 3600.0,
+        posicao_atual.longitude.graus + posicao_atual.longitude.minutos / 60.0 + posicao_atual.longitude.segundos / 3600.0
+    );
+
+    snprintf(buffer, sizeof(buffer), "%.2f km", distancia);
+
+    ssd1306_fill(&ssd, false);  // Limpa a tela
+    ssd1306_draw_string(&ssd, "Distancia:", 0, 0);
+    ssd1306_draw_string(&ssd, buffer, 0, 16);
+    ssd1306_send_data(&ssd);
+
+    sleep_ms(2000);
+    voltar_menu_principal();
+}
+
+
 
 void detectar_som() {
     absolute_time_t start_time = get_absolute_time();
