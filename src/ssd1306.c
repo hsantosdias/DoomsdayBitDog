@@ -153,43 +153,64 @@ void ssd1306_vline(ssd1306_t *ssd, uint8_t x, uint8_t y0, uint8_t y1, bool value
     ssd1306_pixel(ssd, x, y, value);
 }
 
-/*
-//Função anterior para desenhar um caractere Maiúsculo
-// Função para desenhar um caractere
-void ssd1306_draw_char(ssd1306_t *ssd, char c, uint8_t x, uint8_t y)
-{
-  uint16_t index = 0;
-  char ver=c;
-  if (c >= 'A' && c <= 'Z')
-  {
-    index = (c - 'A' + 11) * 8; // Para letras maiúsculas
-  }else  if (c >= '0' && c <= '9')
-  {
-    index = (c - '0' + 1) * 8; // Adiciona o deslocamento necessário
-  }
-  
-  for (uint8_t i = 0; i < 8; ++i)
-  {
-    uint8_t line = font[index + i];
-    for (uint8_t j = 0; j < 8; ++j)
-    {
-      ssd1306_pixel(ssd, x + i, y + j, line & (1 << j));
-    }
-  }
-}
-*/
-
+// Função para desenhar um caractere (suporta letras maiúsculas, minúsculas e números e caracteres especiais)
 void ssd1306_draw_char(ssd1306_t *ssd, char c, uint8_t x, uint8_t y)
 {
     uint16_t index = 0;
 
-    if (c >= 'A' && c <= 'Z') {
-        index = (c - 'A' + 11) * 8; // Índice para letras maiúsculas
-    } else if (c >= '0' && c <= '9') {
+    if (c >= '0' && c <= '9') {
         index = (c - '0' + 1) * 8; // Índice para números
+    } else if (c >= 'A' && c <= 'Z') {
+        index = (c - 'A' + 11) * 8; // Índice para letras maiúsculas
     } else if (c >= 'a' && c <= 'z') {
         index = (c - 'a' + 37) * 8; // Índice para letras minúsculas
-    } else {
+    } 
+    // Adicionando suporte para caracteres especiais
+    else if (c == '!') {
+        index = (63) * 8;
+    } else if (c == '"') {
+        index = (64) * 8;
+    } else if (c == '#') {
+        index = (65) * 8;
+    } else if (c == '$') {
+        index = (66) * 8;
+    } else if (c == '%') {
+        index = (67) * 8;
+    } else if (c == '&') {
+        index = (68) * 8;
+    } else if (c == '\'') {
+        index = (69) * 8;
+    } else if (c == '(') {
+        index = (70) * 8;
+    } else if (c == ')') {
+        index = (71) * 8;
+    } else if (c == '*') {
+        index = (72) * 8;
+    } else if (c == '+') {
+        index = (73) * 8;
+    } else if (c == ',') {
+        index = (74) * 8;
+    } else if (c == '-') {
+        index = (75) * 8;
+    } else if (c == '.') {
+        index = (76) * 8;
+    } else if (c == '/') {
+        index = (77) * 8;
+    } else if (c == ':') {
+        index = (78) * 8;
+    } else if (c == ';') {
+        index = (79) * 8;
+    } else if (c == '<') {
+        index = (80) * 8;
+    } else if (c == '=') {
+        index = (81) * 8;
+    } else if (c == '>') {
+        index = (82) * 8;
+    } else if (c == '?') {
+        index = (83) * 8;
+    } else if (c == '@') {
+        index = (84) * 8;
+    }  else {
         return; // Caractere não suportado
     }
 
