@@ -49,6 +49,10 @@
 // GPIOs para S.O.S
 #define BUZZER_PIN 21
 
+// Frequências para notas altas
+#define NOTE_A5 880   // Nota alta A5
+#define NOTE_C6 1047  // Nota muito alta C6
+
 // Parâmetros para o código Morse do S.O.S
 #define DOT_DURATION 200   // Duração de um ponto (200 ms)
 #define DASH_DURATION 600  // Duração de um traço (600 ms)
@@ -86,6 +90,10 @@ void desenhar_retangulo_selecao();
 void desenhar_setas();
 void exibir_mensagem(const char *linha1, const char *linha2);
 void sinal_sos();
+
+// Prototipação da Função pwm_set_frequency
+void pwm_set_frequency(uint slice_num, uint channel, float frequency);
+
 
 // Prototipação de funções de histórico do menu
 typedef struct Menu Menu;
@@ -501,44 +509,62 @@ void detectar_som() {
 }
 
 
-#include "hardware/pwm.h"
 
-// Inicializa o Buzzer usando PWM
+// Função para inicializar o Buzzer com PWM na maior intensidade
 void inicializar_buzzer() {
     gpio_set_function(BUZZER_PIN, GPIO_FUNC_PWM);
     uint slice_num = pwm_gpio_to_slice_num(BUZZER_PIN);
-    pwm_set_wrap(slice_num, 2500); // Configura a frequência
+    uint channel = pwm_gpio_to_channel(BUZZER_PIN);
+
+    pwm_set_wrap(slice_num, 4095); // Define o ciclo máximo para alta frequência
+    pwm_set_chan_level(slice_num, channel, 2048); // 50% duty cycle para som inicial
     pwm_set_enabled(slice_num, true);
 }
 
-// Gera um som no Buzzer com a duração especificada
+
+// Função para gerar som com a maior intensidade possível
 void tocar_buzzer(int duracao) {
     uint slice_num = pwm_gpio_to_slice_num(BUZZER_PIN);
-    pwm_set_gpio_level(BUZZER_PIN, 1250); // 50% do ciclo de trabalho
+    pwm_set_gpio_level(BUZZER_PIN, 1250); // 100% do ciclo de trabalho para máximo volume
     sleep_ms(duracao);
     pwm_set_gpio_level(BUZZER_PIN, 0);    // Desliga o som
 }
 
-// Pisca o LED
+// Função para piscar o LED
 void piscar_led(int duracao) {
     gpio_put(LED_PIN_R, 1);
     sleep_ms(duracao);
     gpio_put(LED_PIN_R, 0);
 }
 
-// Função para ponto (.)
+// Função para ponto (.) com tom alto
 void ponto() {
-    tocar_buzzer(DOT_DURATION);
+    uint slice_num = pwm_gpio_to_slice_num(BUZZER_PIN);
+    uint channel = pwm_gpio_to_channel(BUZZER_PIN);
+
+    // Toca um tom agudo para ponto (Nota A5)
+    pwm_set_frequency(slice_num, channel, NOTE_A5);
     piscar_led(DOT_DURATION);
     sleep_ms(PAUSE_DURATION);
+
+    // Para o som
+    pwm_set_frequency(slice_num, channel, 0);
 }
 
-// Função para traço (-)
+// Função para traço (-) com tom ainda mais alto
 void traco() {
-    tocar_buzzer(DASH_DURATION);
+    uint slice_num = pwm_gpio_to_slice_num(BUZZER_PIN);
+    uint channel = pwm_gpio_to_channel(BUZZER_PIN);
+
+    // Toca um tom ainda mais agudo para traço (Nota C6)
+    pwm_set_frequency(slice_num, channel, NOTE_C6);
     piscar_led(DASH_DURATION);
     sleep_ms(PAUSE_DURATION);
+
+    // Para o som
+    pwm_set_frequency(slice_num, channel, 0);
 }
+
 
 // Função principal para o sinal S.O.S
 void sinal_sos() {
@@ -567,11 +593,14 @@ void sinal_sos() {
     }
 
     // Finaliza o som e LED
-    pwm_set_gpio_level(BUZZER_PIN, 0);
+    pwm_set_frequency(pwm_gpio_to_slice_num(BUZZER_PIN), pwm_gpio_to_channel(BUZZER_PIN), 0);
     gpio_put(LED_PIN_R, 0);
 
     voltar_menu_principal();
 }
+
+
+
 
 
 
@@ -757,6 +786,23 @@ void pop_menu() {
 void gpio_irq_handler(uint gpio, uint32_t events) {
     reset_usb_boot(0, 0);
 }
+
+
+// Função para configurar o PWM no pino especificado pra gerar som s.o.s
+void pwm_set_frequency(uint slice_num, uint channel, float frequency) {
+    if (frequency == 0) {
+        pwm_set_enabled(slice_num, false); // Desativa o PWM
+    } else {
+        uint32_t clock_freq = 125000000; // Frequência do clock do Pico (125 MHz)
+        uint32_t wrap = clock_freq / frequency - 1;
+
+        if (wrap > 65535) wrap = 65535;
+        pwm_set_wrap(slice_num, wrap);
+        pwm_set_chan_level(slice_num, channel, wrap / 2); // 50% duty cycle
+        pwm_set_enabled(slice_num, true);
+    }
+}
+
 
 int main() {
     stdio_init_all();
