@@ -180,7 +180,7 @@ int opcao_atual = 0;
 Menu *menu_atual = menu_principal;
 int num_opcoes = NUM_OPCOES_PRINCIPAL;
 static absolute_time_t last_interaction_time = 0;
-const uint32_t TIMEOUT_US = 30000000; // 30 segundos
+const uint32_t TIMEOUT_US = 60000000; // 60 segundos
 
 // Inicializa o OLED
 void iniciar_oled() {
@@ -214,7 +214,7 @@ void exibir_mensagem(const char *linha1, const char *linha2) {
     ssd1306_draw_string(&ssd, linha1, 10, 20);
     ssd1306_draw_string(&ssd, linha2, 10, 40);
     ssd1306_send_data(&ssd);
-    sleep_ms(3000);
+    sleep_ms(5000);
 }
 
 // Desenha as opções do menu
@@ -275,7 +275,7 @@ void mostrar_menu() {
 
 void mostrar_temperatura() {
     absolute_time_t start_time = get_absolute_time();
-    while (absolute_time_diff_us(start_time, get_absolute_time()) < 5000000) { // 5 segundos
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 6000000) { // 5 segundos
         
         DadosSensores dados = obter_dados_sensores();
         char buffer[20];
@@ -301,7 +301,7 @@ void mostrar_temperatura() {
 
 void mostrar_umidade() {
     absolute_time_t start_time = get_absolute_time();
-    while (absolute_time_diff_us(start_time, get_absolute_time()) < 5000000) { // 5 segundos
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 1000000) { // 5 segundos
         
         DadosSensores dados = obter_dados_sensores();
         char buffer[20];
@@ -321,7 +321,7 @@ void mostrar_umidade() {
 
 void mostrar_luminosidade() {
     absolute_time_t start_time = get_absolute_time();
-    while (absolute_time_diff_us(start_time, get_absolute_time()) < 5000000) { // 3 segundos
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 6000000) { // 3 segundos
         
         DadosSensores dados = obter_dados_sensores();
         char buffer[20];
@@ -344,7 +344,7 @@ void mostrar_direcao_joystick() {
     char direcao_y[10];
 
     absolute_time_t start_time = get_absolute_time();
-    while (absolute_time_diff_us(start_time, get_absolute_time()) < 5000000) { // 3 segundos
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 10000000) { // 3 segundos
         
         // Lê o estado do Joystick
         ler_joystick(direcao_x, direcao_y);
@@ -370,7 +370,7 @@ void mostrar_direcao_joystick() {
 
 void mostrar_posicao() {
     absolute_time_t start_time = get_absolute_time();
-    while (absolute_time_diff_us(start_time, get_absolute_time()) < 5000000) { // 3 segundos
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 8000000) { // 3 segundos
         
         PosicaoGeografica posicao = obterPosicaoGeografica();
 
@@ -753,7 +753,7 @@ void configurar_sistema() {
     ssd1306_draw_string(&ssd, "Config. Sistema", 10, 20);
     ssd1306_draw_string(&ssd, "Ajustes feitos", 10, 40);
     ssd1306_send_data(&ssd);
-    sleep_ms(3000);
+    sleep_ms(5000);
 }
 
 void mostrar_informacoes() {
@@ -763,7 +763,7 @@ void mostrar_informacoes() {
     ssd1306_draw_string(&ssd, "Autor:", 10, 50);
     ssd1306_draw_string(&ssd, "Hugo S. Dias", 60, 50);
     ssd1306_send_data(&ssd);
-    sleep_ms(3000); // Aumentado para 3 segundos para melhor leitura
+    sleep_ms(5000); // Aumentado para 3 segundos para melhor leitura
 }
 
 
