@@ -64,7 +64,7 @@
 #define LED_PIN_B 12    // LED Azul
 #define LED_PIN_G 11    // LED Verde
 
-#define MENU_TIMEOUT_US 30000000  // 30 segundos
+#define MENU_TIMEOUT_US 60000000  // 30 segundos
 #define BUTTON_DEBOUNCE_US 50000  // 50 ms
 
 // Número de opções no Menu Principal
@@ -112,6 +112,9 @@ void mostrar_mensagens(void);
 void configurar_sistema(void);
 void mostrar_informacoes(void);
 void mostrar_direcao_joystick(void);
+void mostrar_chama(void);
+void mostrar_chama_joystick(void);
+void mostrar_monoxido(void);
 
 // Prototipação da função modificar_valor
 int modificar_valor(int valor_atual, int min, int max);
@@ -157,9 +160,10 @@ Menu submenu_alertas[] = {
 };
 
 // Submenu para Configurações do Sistema
-Menu submenu_configuracoes[] = {
-    {"Ajustes",     NULL, 0, configurar_sistema},
-    {"Informações", NULL, 0, mostrar_informacoes},
+Menu sistemas_criticos[] = {
+    {"Deteccao Chama",     NULL, 0, mostrar_chama_joystick},
+    {"Monoxido Carb.", NULL, 0, mostrar_monoxido},
+    {"Informacoes",        NULL, 0, mostrar_informacoes},
     {"Voltar",      NULL, 0, voltar_menu_principal}
 };
 
@@ -168,7 +172,7 @@ Menu menu_principal[] = {
     {"Info. Ambientais", submenu_monitoramento, ARRAY_SIZE(submenu_monitoramento), NULL},
     {"GPS e Rastreio", submenu_navegacao,     ARRAY_SIZE(submenu_navegacao),     NULL},
     {"Alertas Ativos",submenu_alertas,       ARRAY_SIZE(submenu_alertas),       NULL},
-    {"Config. Sistema", submenu_configuracoes, ARRAY_SIZE(submenu_configuracoes), NULL}
+    {"Sistema Critico", sistemas_criticos, ARRAY_SIZE(sistemas_criticos), NULL}
 };
 
 // Variáveis globais para navegação
@@ -210,7 +214,7 @@ void exibir_mensagem(const char *linha1, const char *linha2) {
     ssd1306_draw_string(&ssd, linha1, 10, 20);
     ssd1306_draw_string(&ssd, linha2, 10, 40);
     ssd1306_send_data(&ssd);
-    sleep_ms(2000);
+    sleep_ms(3000);
 }
 
 // Desenha as opções do menu
@@ -271,7 +275,7 @@ void mostrar_menu() {
 
 void mostrar_temperatura() {
     absolute_time_t start_time = get_absolute_time();
-    while (absolute_time_diff_us(start_time, get_absolute_time()) < 3000000) { // 3 segundos
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 5000000) { // 5 segundos
         
         DadosSensores dados = obter_dados_sensores();
         char buffer[20];
@@ -297,7 +301,7 @@ void mostrar_temperatura() {
 
 void mostrar_umidade() {
     absolute_time_t start_time = get_absolute_time();
-    while (absolute_time_diff_us(start_time, get_absolute_time()) < 3000000) { // 3 segundos
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 5000000) { // 5 segundos
         
         DadosSensores dados = obter_dados_sensores();
         char buffer[20];
@@ -317,7 +321,7 @@ void mostrar_umidade() {
 
 void mostrar_luminosidade() {
     absolute_time_t start_time = get_absolute_time();
-    while (absolute_time_diff_us(start_time, get_absolute_time()) < 3000000) { // 3 segundos
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 5000000) { // 3 segundos
         
         DadosSensores dados = obter_dados_sensores();
         char buffer[20];
@@ -340,7 +344,7 @@ void mostrar_direcao_joystick() {
     char direcao_y[10];
 
     absolute_time_t start_time = get_absolute_time();
-    while (absolute_time_diff_us(start_time, get_absolute_time()) < 3000000) { // 3 segundos
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 5000000) { // 3 segundos
         
         // Lê o estado do Joystick
         ler_joystick(direcao_x, direcao_y);
@@ -366,7 +370,7 @@ void mostrar_direcao_joystick() {
 
 void mostrar_posicao() {
     absolute_time_t start_time = get_absolute_time();
-    while (absolute_time_diff_us(start_time, get_absolute_time()) < 3000000) { // 3 segundos
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 5000000) { // 3 segundos
         
         PosicaoGeografica posicao = obterPosicaoGeografica();
 
@@ -427,7 +431,7 @@ void mostrar_direcao() {
     ssd1306_draw_string(&ssd, buffer, 0, 16);
     ssd1306_send_data(&ssd);
 
-    sleep_ms(2000);
+    sleep_ms(5000);
     voltar_menu_principal();
 }
 
@@ -438,7 +442,7 @@ void mostrar_distancia() {
     char buffer[20];
 
     PosicaoGeografica posicao_atual = obterPosicaoGeografica();
-    static PosicaoGeografica posicao_inicial = {14, 51, 57.0, 40, 50, 20.0}; // Coordenadas de referência
+    static PosicaoGeografica posicao_inicial = {14, 51, 56.0, 40, 49, 20.0}; // Coordenadas de referência
 
     double distancia = haversine(
         posicao_inicial.latitude.graus + posicao_inicial.latitude.minutos / 60.0 + posicao_inicial.latitude.segundos / 3600.0,
@@ -454,7 +458,7 @@ void mostrar_distancia() {
     ssd1306_draw_string(&ssd, buffer, 0, 16);
     ssd1306_send_data(&ssd);
 
-    sleep_ms(2000);
+    sleep_ms(4000);
     voltar_menu_principal();
 }
 
@@ -462,7 +466,7 @@ void mostrar_distancia() {
 
 void detectar_som() {
     absolute_time_t start_time = get_absolute_time();
-    while (absolute_time_diff_us(start_time, get_absolute_time()) < 10000000) { // 10 segundos
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 15000000) { // 15 segundos
         
 
         // Lê o nível de som do microfone interno
@@ -566,7 +570,7 @@ void traco() {
 }
 
 
-// Função principal para o sinal S.O.S
+// Função principal para o sinal S.O.S em Código Morse
 void sinal_sos() {
     // Mensagem no OLED
     exibir_mensagem("Enviando S.O.S", "Aguarde ...");
@@ -575,19 +579,25 @@ void sinal_sos() {
     for (int i = 0; i < 3; i++) {
         // Letra S: ...
         ponto();
+        sleep_ms(PAUSE_DURATION); // Pausa curta entre pontos
         ponto();
+        sleep_ms(PAUSE_DURATION); // Pausa curta entre pontos
         ponto();
-        sleep_ms(LETTER_PAUSE);
+        sleep_ms(LETTER_PAUSE);   // Pausa maior entre letras
 
         // Letra O: ---
         traco();
+        sleep_ms(PAUSE_DURATION); // Pausa curta entre traços
         traco();
+        sleep_ms(PAUSE_DURATION); // Pausa curta entre traços
         traco();
-        sleep_ms(LETTER_PAUSE);
+        sleep_ms(LETTER_PAUSE);   // Pausa maior entre letras
 
         // Letra S: ...
         ponto();
+        sleep_ms(PAUSE_DURATION); // Pausa curta entre pontos
         ponto();
+        sleep_ms(PAUSE_DURATION); // Pausa curta entre pontos
         ponto();
         sleep_ms(LETTER_PAUSE * 2); // Pausa maior entre as palavras
     }
@@ -601,31 +611,161 @@ void sinal_sos() {
 
 
 
+void mostrar_chama() {
+    absolute_time_t start_time = get_absolute_time();
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 5000000) { // 5 segundos
+        
+        int chama_detectada = detectarChama();
+        char buffer[20];
+        
+        if (chama_detectada) {
+            snprintf(buffer, sizeof(buffer), "Chama: SIM");
+        } else {
+            snprintf(buffer, sizeof(buffer), "Chama: NAO");
+        }
 
+        ssd1306_fill(&ssd, false);  // Limpa a tela
+        
+        // Exibe o estado da chama
+        ssd1306_draw_string(&ssd, "Detectando Chama:", 0, 0);
+        ssd1306_draw_string(&ssd, buffer, 0, 16);
+        
+        ssd1306_send_data(&ssd);
 
-
-void mostrar_mensagens() {
-    ssd1306_fill(&ssd, false);
-    ssd1306_draw_string(&ssd, "Sem mensagens", 10, 20);
-    ssd1306_send_data(&ssd);
-    sleep_ms(2000);
+        sleep_ms(500); // Atualiza a cada 500 ms para mostrar variação
+    }
+    voltar_menu_principal();   // Volta ao menu principal após 3 segundos
 }
+
+
+void mostrar_chama_joystick() {
+    absolute_time_t start_time = get_absolute_time();
+    char buffer[20];
+    
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 5000000) { // 5 segundos
+        
+        // Lê o valor do eixo X do Joystick
+        adc_select_input(1); // Joystick X é o ADC 1 (GPIO 26)
+        uint16_t adc_value_x = adc_read();
+        printf("Joystick X: %d\n", adc_value_x);
+
+        // Verifica a direção do eixo X para indicar chama
+        if (adc_value_x > 3000) {
+            snprintf(buffer, sizeof(buffer), "Chama: SIM");
+        } else if (adc_value_x < 1000) {
+            snprintf(buffer, sizeof(buffer), "Chama: NAO");
+        } else {
+            snprintf(buffer, sizeof(buffer), "Aguardando...");
+        }
+
+        ssd1306_fill(&ssd, false);  // Limpa a tela
+        
+        // Exibe o estado da chama com base na posição do joystick
+        ssd1306_draw_string(&ssd, "Detectando Chama:", 0, 0);
+        ssd1306_draw_string(&ssd, buffer, 0, 16);
+        
+        ssd1306_send_data(&ssd);
+
+        sleep_ms(500); // Atualiza a cada 500 ms para mostrar variação
+    }
+    voltar_menu_principal();   // Volta ao menu principal após 3 segundos
+}
+
+
+void mostrar_monoxido() {
+    absolute_time_t start_time = get_absolute_time();
+    char buffer_monoxido[20];
+    char buffer_risco[20];
+    
+    while (absolute_time_diff_us(start_time, get_absolute_time()) < 5000000) { // 5 segundos
+        
+        // Detecta monóxido de carbono
+        int monoxido_detectado = detectarMonoxido();
+        
+        // Lê o valor do eixo X do Joystick
+        adc_select_input(1); // Joystick X é o ADC 1 (GPIO 26)
+        uint16_t adc_value_x = adc_read();
+        printf("Joystick X: %d\n", adc_value_x);
+
+        // Verifica a presença de monóxido
+        if (monoxido_detectado) {
+            snprintf(buffer_monoxido, sizeof(buffer_monoxido), "Monoxido: SIM");
+        } else {
+            snprintf(buffer_monoxido, sizeof(buffer_monoxido), "Monoxido: NAO");
+        }
+
+        // Verifica a direção do eixo X para indicar risco de vida
+        if (adc_value_x > 3000) {
+            snprintf(buffer_risco, sizeof(buffer_risco), "Risco Vida: SIM");
+        } else if (adc_value_x < 1000) {
+            snprintf(buffer_risco, sizeof(buffer_risco), "Risco Vida: NAO");
+        } else {
+            snprintf(buffer_risco, sizeof(buffer_risco), "Aguardando...");
+        }
+
+        ssd1306_fill(&ssd, false);  // Limpa a tela
+        
+        // Exibe o estado do monóxido e o risco de vida
+        ssd1306_draw_string(&ssd, buffer_monoxido, 0, 0);
+        ssd1306_draw_string(&ssd, buffer_risco, 0, 16);
+        
+        ssd1306_send_data(&ssd);
+
+        sleep_ms(500); // Atualiza a cada 500 ms para mostrar variação
+    }
+    voltar_menu_principal();   // Volta ao menu principal após 3 segundos
+}
+
+
+// Função para mostrar mensagens aleatórias de socorro
+void mostrar_mensagens() {
+    // Array com mensagens de socorro (máximo 15 caracteres por linha)
+    const char *mensagens[] = {
+        "Ajuda Necessaria",
+        "S.O.S Recebido",
+        "Perigo! Alerta",
+        "Preciso de Ajuda",
+        "Socorro Imediato",
+        "Envie Reforcos",
+        "Preciso Resgate",
+        "Alerta de Perigo",
+        "Chamando Socorro",
+        "Suporte Necessario"
+    };
+
+    // Obtém um índice aleatório
+    int indice = rand() % (sizeof(mensagens) / sizeof(mensagens[0]));
+    
+    // Exibe a mensagem aleatória no OLED
+    ssd1306_fill(&ssd, false);
+    ssd1306_draw_string(&ssd, "Mensagem SOS:", 0, 0);
+    ssd1306_draw_string(&ssd, mensagens[indice], 0, 20);
+    ssd1306_send_data(&ssd);
+
+    sleep_ms(3000); // Exibe a mensagem por 2 segundos
+
+    voltar_menu_principal();
+}
+
 
 void configurar_sistema() {
     ssd1306_fill(&ssd, false);
     ssd1306_draw_string(&ssd, "Config. Sistema", 10, 20);
     ssd1306_draw_string(&ssd, "Ajustes feitos", 10, 40);
     ssd1306_send_data(&ssd);
-    sleep_ms(2000);
+    sleep_ms(3000);
 }
 
 void mostrar_informacoes() {
     ssd1306_fill(&ssd, false);
-    ssd1306_draw_string(&ssd, "Info. Sistema", 10, 20);
-    ssd1306_draw_string(&ssd, "Versao 1.0", 10, 40);
+    ssd1306_draw_string(&ssd, "Info. Sistema", 10, 10);
+    ssd1306_draw_string(&ssd, "Versao 1.0", 10, 30);
+    ssd1306_draw_string(&ssd, "Autor:", 10, 50);
+    ssd1306_draw_string(&ssd, "Hugo S. Dias", 60, 50);
     ssd1306_send_data(&ssd);
-    sleep_ms(2000);
+    sleep_ms(3000); // Aumentado para 3 segundos para melhor leitura
 }
+
 
 // Inicializa o Joystick e Botões
 void iniciar_joystick() {

@@ -50,4 +50,11 @@ void mostrarLuminosidade(float luminosidade);
 // Função que agrupa a apresentação dos sensores
 void apresentarNovosSensores(void);
 
+
+// Prototipagem dos Sensores Críticos
+int detectarGas(void);
+int detectarFumaca(void);
+int detectarMonoxido(void);
+int detectarVazamentoAgua(void);
+
 #endif // SENSORES_H

@@ -231,3 +231,49 @@ double haversine(double lat1, double lon1, double lat2, double lon2) {
     double distancia = 6371 * c; // 6371 é o raio da Terra em km
     return distancia;
 }
+
+
+
+// Simula um Sensor de Gás (MQ-2)
+int detectarGas() {
+    static int status_gas = 0;
+    if (rand() % 100 < 5) { // 5% de chance de detectar gás
+        status_gas = 1;
+    } else {
+        status_gas = 0;
+    }
+    return status_gas;
+}
+
+// Simula um Sensor de Fumaça (MQ-135)
+int detectarFumaca() {
+    static int status_fumaca = 0;
+    if (rand() % 100 < 3) { // 3% de chance de detectar fumaça
+        status_fumaca = 1;
+    } else {
+        status_fumaca = 0;
+    }
+    return status_fumaca;
+}
+
+// Simula um Sensor de Monóxido de Carbono (MQ-7)
+int detectarMonoxido() {
+    static int status_co = 0;
+    if (rand() % 100 < 2) { // 2% de chance de detectar CO
+        status_co = 1;
+    } else {
+        status_co = 0;
+    }
+    return status_co;
+}
+
+// Simula um Sensor de Vazamento de Água
+int detectarVazamentoAgua() {
+    static int status_agua = 0;
+    if (rand() % 100 < 4) { // 4% de chance de detectar vazamento de água
+        status_agua = 1;
+    } else {
+        status_agua = 0;
+    }
+    return status_agua;
+}
