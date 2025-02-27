@@ -1,3 +1,21 @@
+/**
+ * @file sensores.c
+ * @brief Funções de manipulação de sensores para o projeto DoomsdayBitDog.
+ *
+ * Este arquivo contém a implementação de funções para interface com vários sensores
+ * usados no projeto DoomsdayBitDog. Inclui as importações de bibliotecas necessárias e 
+ * rotinas de inicialização.
+ *
+ * Bibliotecas incluídas:
+ * - stdio.h: Biblioteca padrão de entrada/saída.
+ * - stdlib.h: Biblioteca padrão para alocação de memória, controle de processos, conversões, etc.
+ * - math.h: Funções matemáticas.
+ * - pico/stdlib.h: Biblioteca padrão para Raspberry Pi Pico.
+ * - hardware/adc.h: Biblioteca para funções do conversor analógico-digital (ADC).
+ * - sensores.h: Arquivo de cabeçalho para declarações de funções relacionadas a sensores.
+ *
+ * @note Certifique-se de que as bibliotecas de hardware necessárias estão corretamente instaladas e configuradas.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

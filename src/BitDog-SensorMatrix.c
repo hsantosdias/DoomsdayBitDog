@@ -1,3 +1,23 @@
+/**
+ * @file BitDog-SensorMatrix.c
+ * @brief Este arquivo contém a implementação da matriz de sensores para o projeto BitDog.
+ *
+ * Este módulo é responsável por interagir com vários sensores conectados ao sistema BitDog.
+ * Inclui rotinas de inicialização, aquisição de dados e funções de processamento.
+ *
+ * @autor Hugo
+ * @data [26-02-2025]
+ * @versão 1.0
+ *
+ * @dependências
+ * - stdio.h: Biblioteca de Entrada/Saída padrão para C.
+ * - stdlib.h: Biblioteca padrão para C.
+ * - time.h: Biblioteca de tempo para C.
+ * - pico/stdlib.h: Biblioteca padrão para Raspberry Pi Pico.
+ * - hardware/rtc.h: Biblioteca de hardware do Relógio de Tempo Real para Raspberry Pi Pico.
+ * - hardware/adc.h: Biblioteca de hardware do Conversor Analógico-Digital para Raspberry Pi Pico.
+ * - BitDog-SensorMatrix.h: Arquivo de cabeçalho para o módulo Matriz de Sensores do BitDog.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
