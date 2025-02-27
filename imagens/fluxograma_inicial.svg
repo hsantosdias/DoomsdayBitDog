@@ -1,0 +1,294 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="957pt" height="775pt" viewBox="0.00 0.00 957.00 774.75">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 770.75)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-770.75 953,-770.75 953,4 -4,4"/>
+<g id="clust1" class="cluster">
+<title>cluster_0</title>
+<polygon fill="lightgrey" stroke="lightgrey" points="8,-8 8,-758.75 186,-758.75 186,-8 8,-8"/>
+<text text-anchor="middle" x="97" y="-742.15" font-family="Times,serif" font-size="14.00">Processo Principal</text>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_2</title>
+<polygon fill="green" stroke="green" points="194,-351.35 194,-428.15 618,-428.15 618,-351.35 194,-351.35"/>
+<text text-anchor="middle" x="406" y="-411.55" font-family="Times,serif" font-size="14.00">Leitura de Entrada</text>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_3</title>
+<polygon fill="red" stroke="red" points="194,-255.55 194,-332.35 941,-332.35 941,-255.55 194,-255.55"/>
+<text text-anchor="middle" x="567.5" y="-315.75" font-family="Times,serif" font-size="14.00">Modulação e Comunicação</text>
+</g>
+<g id="clust5" class="cluster">
+<title>cluster_4</title>
+<polygon fill="orange" stroke="orange" points="194,-159.75 194,-236.55 654,-236.55 654,-159.75 194,-159.75"/>
+<text text-anchor="middle" x="424" y="-219.95" font-family="Times,serif" font-size="14.00">Transmissão de Sinais</text>
+</g>
+<g id="clust6" class="cluster">
+<title>cluster_5</title>
+<polygon fill="purple" stroke="purple" points="194,-47.37 194,-124.17 486,-124.17 486,-47.37 194,-47.37"/>
+<text text-anchor="middle" x="340" y="-107.57" font-family="Times,serif" font-size="14.00">Atualização de Interface</text>
+</g>
+<!-- Start -->
+<g id="node1" class="node">
+<title>Start</title>
+<polygon fill="white" stroke="white" points="94,-725.95 43.5,-707.95 94,-689.95 144.5,-707.95 94,-725.95"/>
+<polyline fill="none" stroke="white" points="54.81,-711.97 54.81,-703.92"/>
+<polyline fill="none" stroke="white" points="82.7,-693.97 105.3,-693.97"/>
+<polyline fill="none" stroke="white" points="133.19,-703.92 133.19,-711.97"/>
+<polyline fill="none" stroke="white" points="105.3,-721.92 82.7,-721.92"/>
+<text text-anchor="middle" x="94" y="-703.75" font-family="Times,serif" font-size="14.00">Início</text>
+</g>
+<!-- Init -->
+<g id="node2" class="node">
+<title>Init</title>
+<ellipse fill="white" stroke="white" cx="94" cy="-634.95" rx="27" ry="18"/>
+<text text-anchor="middle" x="94" y="-630.75" font-family="Times,serif" font-size="14.00">Init</text>
+</g>
+<!-- Start&#45;&gt;Init -->
+<g id="edge1" class="edge">
+<title>Start-&gt;Init</title>
+<path fill="none" stroke="black" d="M94,-689.76C94,-682.17 94,-673.05 94,-664.48"/>
+<polygon fill="black" stroke="black" points="97.5,-664.49 94,-654.49 90.5,-664.49 97.5,-664.49"/>
+</g>
+<!-- Loop -->
+<g id="node3" class="node">
+<title>Loop</title>
+<ellipse fill="white" stroke="white" cx="94" cy="-561.95" rx="31.42" ry="18"/>
+<text text-anchor="middle" x="94" y="-557.75" font-family="Times,serif" font-size="14.00">Loop</text>
+</g>
+<!-- Init&#45;&gt;Loop -->
+<g id="edge2" class="edge">
+<title>Init-&gt;Loop</title>
+<path fill="none" stroke="black" d="M94,-616.76C94,-609.17 94,-600.05 94,-591.48"/>
+<polygon fill="black" stroke="black" points="97.5,-591.49 94,-581.49 90.5,-591.49 97.5,-591.49"/>
+</g>
+<!-- CheckInput -->
+<g id="node4" class="node">
+<title>CheckInput</title>
+<ellipse fill="white" stroke="white" cx="122" cy="-488.95" rx="56.09" ry="18"/>
+<text text-anchor="middle" x="122" y="-484.75" font-family="Times,serif" font-size="14.00">CheckInput</text>
+</g>
+<!-- Loop&#45;&gt;CheckInput -->
+<g id="edge3" class="edge">
+<title>Loop-&gt;CheckInput</title>
+<path fill="none" stroke="black" d="M100.64,-544.12C103.76,-536.19 107.58,-526.52 111.11,-517.56"/>
+<polygon fill="black" stroke="black" points="114.25,-519.14 114.66,-508.55 107.74,-516.57 114.25,-519.14"/>
+</g>
+<!-- ProcessSignal -->
+<g id="node5" class="node">
+<title>ProcessSignal</title>
+<ellipse fill="white" stroke="white" cx="113" cy="-377.35" rx="65.22" ry="18"/>
+<text text-anchor="middle" x="113" y="-373.15" font-family="Times,serif" font-size="14.00">ProcessSignal</text>
+</g>
+<!-- CheckInput&#45;&gt;ProcessSignal -->
+<g id="edge4" class="edge">
+<title>CheckInput-&gt;ProcessSignal</title>
+<path fill="none" stroke="black" d="M120.59,-470.82C119.2,-453.79 117.02,-427.35 115.36,-407.09"/>
+<polygon fill="black" stroke="black" points="118.86,-406.9 114.55,-397.22 111.88,-407.47 118.86,-406.9"/>
+</g>
+<!-- GPS_Read -->
+<g id="node9" class="node">
+<title>GPS_Read</title>
+<ellipse fill="white" stroke="white" cx="255" cy="-377.35" rx="53.42" ry="18"/>
+<text text-anchor="middle" x="255" y="-373.15" font-family="Times,serif" font-size="14.00">GPS_Read</text>
+</g>
+<!-- CheckInput&#45;&gt;GPS_Read -->
+<g id="edge9" class="edge">
+<title>CheckInput-&gt;GPS_Read</title>
+<path fill="none" stroke="black" d="M141.62,-471.77C164.15,-453.21 201.27,-422.62 226.87,-401.53"/>
+<polygon fill="black" stroke="black" points="229.07,-404.25 234.56,-395.19 224.62,-398.85 229.07,-404.25"/>
+<text text-anchor="middle" x="197.35" y="-440.35" font-family="Times,serif" font-size="14.00">GPS</text>
+</g>
+<!-- Keypad_Read -->
+<g id="node10" class="node">
+<title>Keypad_Read</title>
+<ellipse fill="white" stroke="white" cx="392" cy="-377.35" rx="65.74" ry="18"/>
+<text text-anchor="middle" x="392" y="-373.15" font-family="Times,serif" font-size="14.00">Keypad_Read</text>
+</g>
+<!-- CheckInput&#45;&gt;Keypad_Read -->
+<g id="edge10" class="edge">
+<title>CheckInput-&gt;Keypad_Read</title>
+<path fill="none" stroke="black" d="M167.12,-478.04C207.55,-468.26 267.87,-451.39 317,-428.15 332.58,-420.78 348.65,-410.52 361.89,-401.23"/>
+<polygon fill="black" stroke="black" points="363.69,-404.25 369.77,-395.57 359.6,-398.56 363.69,-404.25"/>
+<text text-anchor="middle" x="346.76" y="-440.35" font-family="Times,serif" font-size="14.00">Teclado Matricial</text>
+</g>
+<!-- Joystick_Read -->
+<g id="node11" class="node">
+<title>Joystick_Read</title>
+<ellipse fill="white" stroke="white" cx="543" cy="-377.35" rx="67.36" ry="18"/>
+<text text-anchor="middle" x="543" y="-373.15" font-family="Times,serif" font-size="14.00">Joystick_Read</text>
+</g>
+<!-- CheckInput&#45;&gt;Joystick_Read -->
+<g id="edge11" class="edge">
+<title>CheckInput-&gt;Joystick_Read</title>
+<path fill="none" stroke="black" d="M178.33,-488.16C249.36,-486.26 373.5,-475.61 467,-428.15 482.28,-420.39 498.28,-410.25 511.63,-401.14"/>
+<polygon fill="black" stroke="black" points="513.38,-404.19 519.6,-395.61 509.39,-398.44 513.38,-404.19"/>
+<text text-anchor="middle" x="472.99" y="-440.35" font-family="Times,serif" font-size="14.00">Joystick</text>
+</g>
+<!-- TransmitSignal -->
+<g id="node6" class="node">
+<title>TransmitSignal</title>
+<ellipse fill="white" stroke="white" cx="107" cy="-281.55" rx="70.58" ry="18"/>
+<text text-anchor="middle" x="107" y="-277.35" font-family="Times,serif" font-size="14.00">TransmitSignal</text>
+</g>
+<!-- ProcessSignal&#45;&gt;TransmitSignal -->
+<g id="edge5" class="edge">
+<title>ProcessSignal-&gt;TransmitSignal</title>
+<path fill="none" stroke="black" d="M111.9,-359.14C111.04,-345.74 109.83,-326.84 108.83,-311.17"/>
+<polygon fill="black" stroke="black" points="112.34,-311.22 108.21,-301.47 105.36,-311.67 112.34,-311.22"/>
+</g>
+<!-- ModulateFM -->
+<g id="node12" class="node">
+<title>ModulateFM</title>
+<ellipse fill="white" stroke="white" cx="264" cy="-281.55" rx="62" ry="18"/>
+<text text-anchor="middle" x="264" y="-277.35" font-family="Times,serif" font-size="14.00">ModulateFM</text>
+</g>
+<!-- ProcessSignal&#45;&gt;ModulateFM -->
+<g id="edge12" class="edge">
+<title>ProcessSignal-&gt;ModulateFM</title>
+<path fill="none" stroke="black" d="M141.45,-360.74C156.11,-352.54 174.17,-342.17 190,-332.35 203.84,-323.75 218.8,-313.81 231.62,-305.08"/>
+<polygon fill="black" stroke="black" points="233.44,-308.08 239.71,-299.54 229.48,-302.31 233.44,-308.08"/>
+</g>
+<!-- ModulateAM -->
+<g id="node13" class="node">
+<title>ModulateAM</title>
+<ellipse fill="white" stroke="white" cx="408" cy="-281.55" rx="63.61" ry="18"/>
+<text text-anchor="middle" x="408" y="-277.35" font-family="Times,serif" font-size="14.00">ModulateAM</text>
+</g>
+<!-- ProcessSignal&#45;&gt;ModulateAM -->
+<g id="edge13" class="edge">
+<title>ProcessSignal-&gt;ModulateAM</title>
+<path fill="none" stroke="black" d="M151.39,-362.35C163.6,-358.31 177.25,-354.22 190,-351.35 253.4,-337.03 274.27,-355.51 335,-332.35 351.26,-326.14 367.45,-315.65 380.43,-305.9"/>
+<polygon fill="black" stroke="black" points="382.35,-308.84 388.08,-299.93 378.05,-303.32 382.35,-308.84"/>
+</g>
+<!-- ModulateLoRa -->
+<g id="node14" class="node">
+<title>ModulateLoRa</title>
+<ellipse fill="white" stroke="white" cx="559" cy="-281.55" rx="69.5" ry="18"/>
+<text text-anchor="middle" x="559" y="-277.35" font-family="Times,serif" font-size="14.00">ModulateLoRa</text>
+</g>
+<!-- ProcessSignal&#45;&gt;ModulateLoRa -->
+<g id="edge14" class="edge">
+<title>ProcessSignal-&gt;ModulateLoRa</title>
+<path fill="none" stroke="black" d="M150.11,-362.23C162.61,-358.04 176.75,-353.89 190,-351.35 317.29,-326.92 357.84,-372.71 481,-332.35 498.61,-326.57 516.2,-315.89 530.19,-305.89"/>
+<polygon fill="black" stroke="black" points="532.11,-308.82 538.06,-300.05 527.94,-303.21 532.11,-308.82"/>
+</g>
+<!-- MorseCode -->
+<g id="node15" class="node">
+<title>MorseCode</title>
+<ellipse fill="white" stroke="white" cx="703" cy="-281.55" rx="56.1" ry="18"/>
+<text text-anchor="middle" x="703" y="-277.35" font-family="Times,serif" font-size="14.00">MorseCode</text>
+</g>
+<!-- ProcessSignal&#45;&gt;MorseCode -->
+<g id="edge15" class="edge">
+<title>ProcessSignal-&gt;MorseCode</title>
+<path fill="none" stroke="black" d="M149.68,-362.14C162.27,-357.88 176.57,-353.72 190,-351.35 288.12,-333.99 544.5,-366.81 638,-332.35 652.95,-326.84 667.26,-316.61 678.63,-306.85"/>
+<polygon fill="black" stroke="black" points="680.88,-309.54 685.96,-300.24 676.19,-304.34 680.88,-309.54"/>
+</g>
+<!-- EmergencyLEDs -->
+<g id="node16" class="node">
+<title>EmergencyLEDs</title>
+<ellipse fill="white" stroke="white" cx="855" cy="-281.55" rx="77.54" ry="18"/>
+<text text-anchor="middle" x="855" y="-277.35" font-family="Times,serif" font-size="14.00">EmergencyLEDs</text>
+</g>
+<!-- ProcessSignal&#45;&gt;EmergencyLEDs -->
+<g id="edge16" class="edge">
+<title>ProcessSignal-&gt;EmergencyLEDs</title>
+<path fill="none" stroke="black" d="M149.66,-362.04C162.25,-357.78 176.56,-353.63 190,-351.35 316.69,-329.78 644.86,-369.11 768,-332.35 787.61,-326.49 807.56,-315.51 823.4,-305.34"/>
+<polygon fill="black" stroke="black" points="825.04,-308.46 831.44,-300.01 821.17,-302.62 825.04,-308.46"/>
+</g>
+<!-- DisplayUpdate -->
+<g id="node7" class="node">
+<title>DisplayUpdate</title>
+<ellipse fill="white" stroke="white" cx="108" cy="-185.75" rx="68.96" ry="18"/>
+<text text-anchor="middle" x="108" y="-181.55" font-family="Times,serif" font-size="14.00">DisplayUpdate</text>
+</g>
+<!-- TransmitSignal&#45;&gt;DisplayUpdate -->
+<g id="edge6" class="edge">
+<title>TransmitSignal-&gt;DisplayUpdate</title>
+<path fill="none" stroke="black" d="M107.18,-263.34C107.33,-249.94 107.53,-231.04 107.69,-215.37"/>
+<polygon fill="black" stroke="black" points="111.19,-215.71 107.8,-205.67 104.19,-215.63 111.19,-215.71"/>
+</g>
+<!-- RF_Transmitter -->
+<g id="node17" class="node">
+<title>RF_Transmitter</title>
+<ellipse fill="white" stroke="white" cx="275" cy="-185.75" rx="72.73" ry="18"/>
+<text text-anchor="middle" x="275" y="-181.55" font-family="Times,serif" font-size="14.00">RF_Transmitter</text>
+</g>
+<!-- TransmitSignal&#45;&gt;RF_Transmitter -->
+<g id="edge17" class="edge">
+<title>TransmitSignal-&gt;RF_Transmitter</title>
+<path fill="none" stroke="black" d="M137.13,-264.97C152.96,-256.68 172.62,-246.24 190,-236.55 206.02,-227.61 223.54,-217.42 238.48,-208.6"/>
+<polygon fill="black" stroke="black" points="240.25,-211.62 247.07,-203.51 236.68,-205.6 240.25,-211.62"/>
+</g>
+<!-- LoRa_Module -->
+<g id="node18" class="node">
+<title>LoRa_Module</title>
+<ellipse fill="white" stroke="white" cx="433" cy="-185.75" rx="67.36" ry="18"/>
+<text text-anchor="middle" x="433" y="-181.55" font-family="Times,serif" font-size="14.00">LoRa_Module</text>
+</g>
+<!-- TransmitSignal&#45;&gt;LoRa_Module -->
+<g id="edge18" class="edge">
+<title>TransmitSignal-&gt;LoRa_Module</title>
+<path fill="none" stroke="black" d="M148,-266.61C161.27,-262.52 176.14,-258.4 190,-255.55 263.17,-240.49 286.74,-261.93 357,-236.55 374,-230.4 391,-219.79 404.6,-209.93"/>
+<polygon fill="black" stroke="black" points="406.33,-213.01 412.22,-204.2 402.13,-207.41 406.33,-213.01"/>
+</g>
+<!-- LED_Beacon -->
+<g id="node19" class="node">
+<title>LED_Beacon</title>
+<ellipse fill="white" stroke="white" cx="582" cy="-185.75" rx="63.59" ry="18"/>
+<text text-anchor="middle" x="582" y="-181.55" font-family="Times,serif" font-size="14.00">LED_Beacon</text>
+</g>
+<!-- TransmitSignal&#45;&gt;LED_Beacon -->
+<g id="edge19" class="edge">
+<title>TransmitSignal-&gt;LED_Beacon</title>
+<path fill="none" stroke="black" d="M147.07,-266.42C160.55,-262.22 175.78,-258.08 190,-255.55 259.92,-243.11 441.8,-259.5 509,-236.55 525.59,-230.88 541.91,-220.35 554.9,-210.43"/>
+<polygon fill="black" stroke="black" points="556.91,-213.3 562.55,-204.33 552.55,-207.83 556.91,-213.3"/>
+</g>
+<!-- EndLoop -->
+<g id="node8" class="node">
+<title>EndLoop</title>
+<polygon fill="white" stroke="white" points="139.37,-130.75 24.63,-130.75 24.63,-16 139.37,-16 139.37,-130.75"/>
+<polyline fill="none" stroke="white" points="36.63,-130.75 24.63,-118.75"/>
+<polyline fill="none" stroke="white" points="24.63,-28 36.63,-16"/>
+<polyline fill="none" stroke="white" points="127.37,-16 139.37,-28"/>
+<polyline fill="none" stroke="white" points="139.37,-118.75 127.37,-130.75"/>
+<text text-anchor="middle" x="82" y="-69.17" font-family="Times,serif" font-size="14.00">Retornar ao Loop</text>
+</g>
+<!-- DisplayUpdate&#45;&gt;EndLoop -->
+<g id="edge7" class="edge">
+<title>DisplayUpdate-&gt;EndLoop</title>
+<path fill="none" stroke="black" d="M103.94,-167.5C102.25,-160.35 100.18,-151.56 97.99,-142.26"/>
+<polygon fill="black" stroke="black" points="101.43,-141.58 95.73,-132.65 94.61,-143.18 101.43,-141.58"/>
+</g>
+<!-- OLED_Display -->
+<g id="node20" class="node">
+<title>OLED_Display</title>
+<ellipse fill="white" stroke="white" cx="274" cy="-73.37" rx="71.65" ry="18"/>
+<text text-anchor="middle" x="274" y="-69.17" font-family="Times,serif" font-size="14.00">OLED_Display</text>
+</g>
+<!-- DisplayUpdate&#45;&gt;OLED_Display -->
+<g id="edge20" class="edge">
+<title>DisplayUpdate-&gt;OLED_Display</title>
+<path fill="none" stroke="black" d="M132.8,-168.5C149.08,-157.81 170.84,-143.48 190,-130.75 206.71,-119.63 225.25,-107.21 240.64,-96.86"/>
+<polygon fill="black" stroke="black" points="242.18,-100.04 248.52,-91.55 238.27,-94.23 242.18,-100.04"/>
+</g>
+<!-- StatusLEDs -->
+<g id="node21" class="node">
+<title>StatusLEDs</title>
+<ellipse fill="white" stroke="white" cx="421" cy="-73.37" rx="57.18" ry="18"/>
+<text text-anchor="middle" x="421" y="-69.17" font-family="Times,serif" font-size="14.00">StatusLEDs</text>
+</g>
+<!-- DisplayUpdate&#45;&gt;StatusLEDs -->
+<g id="edge21" class="edge">
+<title>DisplayUpdate-&gt;StatusLEDs</title>
+<path fill="none" stroke="black" d="M149.45,-171.04C162.35,-167.06 176.68,-162.93 190,-159.75 262.41,-142.41 287.65,-162.49 355,-130.75 371.12,-123.15 386.44,-110.53 398.25,-99.16"/>
+<polygon fill="black" stroke="black" points="400.54,-101.82 405.12,-92.26 395.59,-96.88 400.54,-101.82"/>
+</g>
+<!-- EndLoop&#45;&gt;Loop -->
+<g id="edge8" class="edge">
+<title>EndLoop-&gt;Loop</title>
+<path fill="none" stroke="black" d="M33.74,-131.02C24.17,-147.32 17,-165.84 17,-184.75 17,-489.95 17,-489.95 17,-489.95 17,-514.68 38.74,-533.17 59.11,-545.08"/>
+<polygon fill="black" stroke="black" points="57.42,-548.14 67.88,-549.82 60.75,-541.98 57.42,-548.14"/>
+</g>
+</g>
+</svg>

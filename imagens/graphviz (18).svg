@@ -1,0 +1,431 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="976pt" height="1153pt" viewBox="0.00 0.00 976.00 1152.55">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1148.55)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-1148.55 972,-1148.55 972,4 -4,4"/>
+<g id="clust1" class="cluster">
+<title>cluster_0</title>
+<polygon fill="lightgrey" stroke="lightgrey" points="200,-154 200,-1136.55 622,-1136.55 622,-154 200,-154"/>
+<text text-anchor="middle" x="411" y="-1119.95" font-family="Times,serif" font-size="14.00">Fluxo Principal</text>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_2</title>
+<polygon fill="green" stroke="green" points="630,-621.15 630,-967.75 917,-967.75 917,-621.15 630,-621.15"/>
+<text text-anchor="middle" x="773.5" y="-951.15" font-family="Times,serif" font-size="14.00">Inicialização</text>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_3</title>
+<polygon fill="red" stroke="red" points="630,-401.55 630,-567.15 960,-567.15 960,-401.55 630,-401.55"/>
+<text text-anchor="middle" x="795" y="-550.55" font-family="Times,serif" font-size="14.00">Execução da Ação</text>
+</g>
+<g id="clust5" class="cluster">
+<title>cluster_4</title>
+<polygon fill="orange" stroke="orange" points="8,-8 8,-382.55 192,-382.55 192,-8 8,-8"/>
+<text text-anchor="middle" x="100" y="-365.95" font-family="Times,serif" font-size="14.00">Atualização do Menu</text>
+</g>
+<!-- Start -->
+<g id="node1" class="node">
+<title>Start</title>
+<polygon fill="white" stroke="white" points="564,-1103.75 513.5,-1085.75 564,-1067.75 614.5,-1085.75 564,-1103.75"/>
+<polyline fill="none" stroke="white" points="524.81,-1089.77 524.81,-1081.72"/>
+<polyline fill="none" stroke="white" points="552.7,-1071.77 575.3,-1071.77"/>
+<polyline fill="none" stroke="white" points="603.19,-1081.72 603.19,-1089.77"/>
+<polyline fill="none" stroke="white" points="575.3,-1099.72 552.7,-1099.72"/>
+<text text-anchor="middle" x="564" y="-1081.55" font-family="Times,serif" font-size="14.00">Início</text>
+</g>
+<!-- Init -->
+<g id="node2" class="node">
+<title>Init</title>
+<ellipse fill="white" stroke="white" cx="586" cy="-1012.75" rx="27" ry="18"/>
+<text text-anchor="middle" x="586" y="-1008.55" font-family="Times,serif" font-size="14.00">Init</text>
+</g>
+<!-- Start&#45;&gt;Init -->
+<g id="edge1" class="edge">
+<title>Start-&gt;Init</title>
+<path fill="none" stroke="black" d="M568.88,-1068.99C571.38,-1060.91 574.51,-1050.84 577.39,-1041.52"/>
+<polygon fill="black" stroke="black" points="580.68,-1042.73 580.3,-1032.14 574,-1040.66 580.68,-1042.73"/>
+</g>
+<!-- Loop -->
+<g id="node3" class="node">
+<title>Loop</title>
+<ellipse fill="white" stroke="white" cx="583" cy="-916.95" rx="31.42" ry="18"/>
+<text text-anchor="middle" x="583" y="-912.75" font-family="Times,serif" font-size="14.00">Loop</text>
+</g>
+<!-- Init&#45;&gt;Loop -->
+<g id="edge2" class="edge">
+<title>Init-&gt;Loop</title>
+<path fill="none" stroke="black" d="M585.45,-994.54C585.02,-981.14 584.42,-962.24 583.92,-946.57"/>
+<polygon fill="black" stroke="black" points="587.42,-946.75 583.61,-936.87 580.43,-946.98 587.42,-946.75"/>
+</g>
+<!-- InitOled -->
+<g id="node14" class="node">
+<title>InitOled</title>
+<ellipse fill="white" stroke="white" cx="835" cy="-916.95" rx="43.22" ry="18"/>
+<text text-anchor="middle" x="835" y="-912.75" font-family="Times,serif" font-size="14.00">InitOled</text>
+</g>
+<!-- Init&#45;&gt;InitOled -->
+<g id="edge19" class="edge">
+<title>Init-&gt;InitOled</title>
+<path fill="none" stroke="black" d="M612.69,-1008.49C648.79,-1003.37 714.59,-991.47 766,-967.75 781.07,-960.79 796.2,-950.35 808.44,-940.82"/>
+<polygon fill="black" stroke="black" points="810.41,-943.72 816.01,-934.73 806.02,-938.27 810.41,-943.72"/>
+</g>
+<!-- InitJoystick -->
+<g id="node15" class="node">
+<title>InitJoystick</title>
+<ellipse fill="white" stroke="white" cx="701" cy="-916.95" rx="56.1" ry="18"/>
+<text text-anchor="middle" x="701" y="-912.75" font-family="Times,serif" font-size="14.00">InitJoystick</text>
+</g>
+<!-- Init&#45;&gt;InitJoystick -->
+<g id="edge20" class="edge">
+<title>Init-&gt;InitJoystick</title>
+<path fill="none" stroke="black" d="M602.48,-998.31C620.63,-983.5 650.16,-959.42 672.16,-941.47"/>
+<polygon fill="black" stroke="black" points="674.37,-944.18 679.9,-935.15 669.94,-938.76 674.37,-944.18"/>
+</g>
+<!-- VerificaTimeout -->
+<g id="node4" class="node">
+<title>VerificaTimeout</title>
+<ellipse fill="white" stroke="white" cx="450" cy="-843.95" rx="75.39" ry="18"/>
+<text text-anchor="middle" x="450" y="-839.75" font-family="Times,serif" font-size="14.00">VerificaTimeout</text>
+</g>
+<!-- Loop&#45;&gt;VerificaTimeout -->
+<g id="edge3" class="edge">
+<title>Loop-&gt;VerificaTimeout</title>
+<path fill="none" stroke="black" d="M560.44,-903.9C541.07,-893.56 512.7,-878.42 489.57,-866.07"/>
+<polygon fill="black" stroke="black" points="491.49,-863.13 481.02,-861.51 488.2,-869.3 491.49,-863.13"/>
+</g>
+<!-- VerificaJoystick -->
+<g id="node5" class="node">
+<title>VerificaJoystick</title>
+<ellipse fill="white" stroke="white" cx="450" cy="-755.15" rx="74.32" ry="18"/>
+<text text-anchor="middle" x="450" y="-750.95" font-family="Times,serif" font-size="14.00">VerificaJoystick</text>
+</g>
+<!-- VerificaTimeout&#45;&gt;VerificaJoystick -->
+<g id="edge4" class="edge">
+<title>VerificaTimeout-&gt;VerificaJoystick</title>
+<path fill="none" stroke="black" d="M450,-825.8C450,-814.1 450,-798.34 450,-784.76"/>
+<polygon fill="black" stroke="black" points="453.5,-785.07 450,-775.07 446.5,-785.07 453.5,-785.07"/>
+</g>
+<!-- Timeout -->
+<g id="node9" class="node">
+<title>Timeout</title>
+<ellipse fill="white" stroke="white" cx="301" cy="-701.15" rx="43.76" ry="18"/>
+<text text-anchor="middle" x="301" y="-696.95" font-family="Times,serif" font-size="14.00">Timeout</text>
+</g>
+<!-- VerificaTimeout&#45;&gt;Timeout -->
+<g id="edge8" class="edge">
+<title>VerificaTimeout-&gt;Timeout</title>
+<path fill="none" stroke="black" d="M402.73,-829.71C389.45,-824.43 375.67,-817.32 364.74,-807.95 339.87,-786.61 321.98,-753.05 311.6,-729.46"/>
+<polygon fill="black" stroke="black" points="314.93,-728.35 307.82,-720.49 308.48,-731.06 314.93,-728.35"/>
+<text text-anchor="middle" x="405.37" y="-795.35" font-family="Times,serif" font-size="14.00">Sem interação</text>
+</g>
+<!-- VerificaBotoes -->
+<g id="node6" class="node">
+<title>VerificaBotoes</title>
+<ellipse fill="white" stroke="white" cx="381" cy="-647.15" rx="69.49" ry="18"/>
+<text text-anchor="middle" x="381" y="-642.95" font-family="Times,serif" font-size="14.00">VerificaBotoes</text>
+</g>
+<!-- VerificaJoystick&#45;&gt;VerificaBotoes -->
+<g id="edge5" class="edge">
+<title>VerificaJoystick-&gt;VerificaBotoes</title>
+<path fill="none" stroke="black" d="M438.91,-737.11C427.95,-720.27 411.01,-694.25 398.28,-674.69"/>
+<polygon fill="black" stroke="black" points="401.27,-672.87 392.88,-666.4 395.41,-676.69 401.27,-672.87"/>
+</g>
+<!-- NavegaMenu -->
+<g id="node11" class="node">
+<title>NavegaMenu</title>
+<ellipse fill="white" stroke="white" cx="544" cy="-593.15" rx="63.06" ry="18"/>
+<text text-anchor="middle" x="544" y="-588.95" font-family="Times,serif" font-size="14.00">NavegaMenu</text>
+</g>
+<!-- VerificaJoystick&#45;&gt;NavegaMenu -->
+<g id="edge10" class="edge">
+<title>VerificaJoystick-&gt;NavegaMenu</title>
+<path fill="none" stroke="black" d="M454.65,-736.88C459.01,-722.09 466.27,-700.51 475.78,-683.15 488.52,-659.88 507.03,-636.17 521.55,-619.08"/>
+<polygon fill="black" stroke="black" points="523.84,-621.78 527.74,-611.92 518.55,-617.2 523.84,-621.78"/>
+<text text-anchor="middle" x="541.89" y="-696.95" font-family="Times,serif" font-size="14.00">Movimento no Joystick</text>
+</g>
+<!-- AtualizaMenu -->
+<g id="node7" class="node">
+<title>AtualizaMenu</title>
+<ellipse fill="white" stroke="white" cx="407" cy="-331.75" rx="66.28" ry="18"/>
+<text text-anchor="middle" x="407" y="-327.55" font-family="Times,serif" font-size="14.00">AtualizaMenu</text>
+</g>
+<!-- VerificaBotoes&#45;&gt;AtualizaMenu -->
+<g id="edge6" class="edge">
+<title>VerificaBotoes-&gt;AtualizaMenu</title>
+<path fill="none" stroke="black" d="M373,-628.99C367.06,-613.48 361.76,-590.74 373,-575.15 379.57,-566.02 390.23,-576.12 397,-567.15 420.82,-535.54 414.24,-416.88 409.69,-361.52"/>
+<polygon fill="black" stroke="black" points="413.18,-361.28 408.83,-351.62 406.21,-361.88 413.18,-361.28"/>
+</g>
+<!-- VoltaMenuPrincipal -->
+<g id="node10" class="node">
+<title>VoltaMenuPrincipal</title>
+<ellipse fill="white" stroke="white" cx="298" cy="-516.35" rx="89.89" ry="18"/>
+<text text-anchor="middle" x="298" y="-512.15" font-family="Times,serif" font-size="14.00">VoltaMenuPrincipal</text>
+</g>
+<!-- VerificaBotoes&#45;&gt;VoltaMenuPrincipal -->
+<g id="edge13" class="edge">
+<title>VerificaBotoes-&gt;VoltaMenuPrincipal</title>
+<path fill="none" stroke="black" d="M340.81,-632.05C331.1,-626.87 321.66,-620.03 315.16,-611.15 301.48,-592.45 297.63,-566.16 296.95,-546.17"/>
+<polygon fill="black" stroke="black" points="300.45,-546.15 296.89,-536.17 293.45,-546.19 300.45,-546.15"/>
+<text text-anchor="middle" x="339.08" y="-588.95" font-family="Times,serif" font-size="14.00">Botão A</text>
+</g>
+<!-- SelecionaOpcao -->
+<g id="node12" class="node">
+<title>SelecionaOpcao</title>
+<ellipse fill="white" stroke="white" cx="500" cy="-516.35" rx="73.78" ry="18"/>
+<text text-anchor="middle" x="500" y="-512.15" font-family="Times,serif" font-size="14.00">SelecionaOpcao</text>
+</g>
+<!-- VerificaBotoes&#45;&gt;SelecionaOpcao -->
+<g id="edge12" class="edge">
+<title>VerificaBotoes-&gt;SelecionaOpcao</title>
+<path fill="none" stroke="black" d="M377.94,-628.72C376.22,-613.02 376.4,-590.15 388.38,-575.15 395.3,-566.49 401.88,-571.67 412,-567.15 429.88,-559.15 448.88,-548.66 464.64,-539.38"/>
+<polygon fill="black" stroke="black" points="466.4,-542.4 473.19,-534.26 462.81,-536.39 466.4,-542.4"/>
+<text text-anchor="middle" x="430.19" y="-588.95" font-family="Times,serif" font-size="14.00">Botão Joystick</text>
+</g>
+<!-- EndLoop -->
+<g id="node8" class="node">
+<title>EndLoop</title>
+<polygon fill="white" stroke="white" points="464.37,-276.75 349.63,-276.75 349.63,-162 464.37,-162 464.37,-276.75"/>
+<polyline fill="none" stroke="white" points="361.63,-276.75 349.63,-264.75"/>
+<polyline fill="none" stroke="white" points="349.63,-174 361.63,-162"/>
+<polyline fill="none" stroke="white" points="452.37,-162 464.37,-174"/>
+<polyline fill="none" stroke="white" points="464.37,-264.75 452.37,-276.75"/>
+<text text-anchor="middle" x="407" y="-215.17" font-family="Times,serif" font-size="14.00">Retornar ao Loop</text>
+</g>
+<!-- AtualizaMenu&#45;&gt;EndLoop -->
+<g id="edge7" class="edge">
+<title>AtualizaMenu-&gt;EndLoop</title>
+<path fill="none" stroke="black" d="M401.94,-313.5C401.17,-306.43 400.66,-297.75 400.42,-288.56"/>
+<polygon fill="black" stroke="black" points="403.92,-288.64 400.27,-278.69 396.92,-288.74 403.92,-288.64"/>
+</g>
+<!-- AtualizaMenu&#45;&gt;EndLoop -->
+<g id="edge16" class="edge">
+<title>AtualizaMenu-&gt;EndLoop</title>
+<path fill="none" stroke="black" d="M412.06,-313.5C412.83,-306.43 413.34,-297.75 413.58,-288.56"/>
+<polygon fill="black" stroke="black" points="417.08,-288.74 413.73,-278.69 410.08,-288.64 417.08,-288.74"/>
+</g>
+<!-- DesenhaOpcoes -->
+<g id="node24" class="node">
+<title>DesenhaOpcoes</title>
+<ellipse fill="white" stroke="white" cx="106" cy="-331.75" rx="73.25" ry="18"/>
+<text text-anchor="middle" x="106" y="-327.55" font-family="Times,serif" font-size="14.00">DesenhaOpcoes</text>
+</g>
+<!-- AtualizaMenu&#45;&gt;DesenhaOpcoes -->
+<g id="edge32" class="edge">
+<title>AtualizaMenu-&gt;DesenhaOpcoes</title>
+<path fill="none" stroke="black" d="M340.35,-331.75C290.5,-331.75 240.65,-331.75 190.8,-331.75"/>
+<polygon fill="black" stroke="black" points="191,-328.25 181,-331.75 191,-335.25 191,-328.25"/>
+</g>
+<!-- DesenhaRetangulo -->
+<g id="node25" class="node">
+<title>DesenhaRetangulo</title>
+<ellipse fill="white" stroke="white" cx="100" cy="-219.37" rx="83.98" ry="18"/>
+<text text-anchor="middle" x="100" y="-215.17" font-family="Times,serif" font-size="14.00">DesenhaRetangulo</text>
+</g>
+<!-- AtualizaMenu&#45;&gt;DesenhaRetangulo -->
+<g id="edge33" class="edge">
+<title>AtualizaMenu-&gt;DesenhaRetangulo</title>
+<path fill="none" stroke="black" d="M350.61,-321.84C317.89,-315.96 276.14,-307.21 240,-295.75 219.7,-289.31 215,-286.38 196,-276.75 175.49,-266.35 153.31,-253.44 135.44,-242.6"/>
+<polygon fill="black" stroke="black" points="137.65,-239.84 127.29,-237.61 133.99,-245.81 137.65,-239.84"/>
+</g>
+<!-- DesenhaSetas -->
+<g id="node26" class="node">
+<title>DesenhaSetas</title>
+<ellipse fill="white" stroke="white" cx="108" cy="-107" rx="64.67" ry="18"/>
+<text text-anchor="middle" x="108" y="-102.8" font-family="Times,serif" font-size="14.00">DesenhaSetas</text>
+</g>
+<!-- AtualizaMenu&#45;&gt;DesenhaSetas -->
+<g id="edge34" class="edge">
+<title>AtualizaMenu-&gt;DesenhaSetas</title>
+<path fill="none" stroke="black" d="M386.75,-314.24C373.68,-303.56 356.31,-289.36 341,-276.75 275.04,-222.41 263.81,-201.84 193,-154 179.24,-144.7 163.41,-135.72 149.18,-128.19"/>
+<polygon fill="black" stroke="black" points="150.97,-125.18 140.49,-123.69 147.75,-131.4 150.97,-125.18"/>
+</g>
+<!-- EndLoop&#45;&gt;Loop -->
+<g id="edge18" class="edge">
+<title>EndLoop-&gt;Loop</title>
+<path fill="none" stroke="black" d="M464.66,-226.59C525.6,-236.74 613,-263.09 613,-330.75 613,-844.95 613,-844.95 613,-844.95 613,-860.78 606.59,-877.15 599.69,-890.18"/>
+<polygon fill="black" stroke="black" points="596.85,-888.1 594.92,-898.52 602.92,-891.57 596.85,-888.1"/>
+</g>
+<!-- Timeout&#45;&gt;VoltaMenuPrincipal -->
+<g id="edge9" class="edge">
+<title>Timeout-&gt;VoltaMenuPrincipal</title>
+<path fill="none" stroke="black" d="M299.73,-682.76C298.5,-664.83 296.7,-636.05 296,-611.15 295.55,-595.15 295.72,-591.14 296,-575.15 296.16,-565.72 296.48,-555.44 296.81,-546.19"/>
+<polygon fill="black" stroke="black" points="300.3,-546.43 297.18,-536.31 293.3,-546.17 300.3,-546.43"/>
+</g>
+<!-- VoltaMenuPrincipal&#45;&gt;AtualizaMenu -->
+<g id="edge17" class="edge">
+<title>VoltaMenuPrincipal-&gt;AtualizaMenu</title>
+<path fill="none" stroke="black" d="M308.25,-498.17C327.32,-466.22 368.37,-397.47 391.07,-359.43"/>
+<polygon fill="black" stroke="black" points="393.8,-361.69 395.92,-351.31 387.79,-358.1 393.8,-361.69"/>
+</g>
+<!-- NavegaMenu&#45;&gt;AtualizaMenu -->
+<g id="edge11" class="edge">
+<title>NavegaMenu-&gt;AtualizaMenu</title>
+<path fill="none" stroke="black" d="M574.63,-577.13C577.98,-574.27 580.92,-570.96 583,-567.15 597.67,-540.32 599.86,-523.85 583,-498.35 549.97,-448.38 501.97,-487.27 459,-445.55 435.09,-422.33 421.1,-386.04 413.77,-360.92"/>
+<polygon fill="black" stroke="black" points="417.17,-360.11 411.17,-351.38 410.42,-361.95 417.17,-360.11"/>
+</g>
+<!-- ExecutaAcao -->
+<g id="node13" class="node">
+<title>ExecutaAcao</title>
+<ellipse fill="white" stroke="white" cx="531" cy="-427.55" rx="62.51" ry="18"/>
+<text text-anchor="middle" x="531" y="-423.35" font-family="Times,serif" font-size="14.00">ExecutaAcao</text>
+</g>
+<!-- SelecionaOpcao&#45;&gt;ExecutaAcao -->
+<g id="edge14" class="edge">
+<title>SelecionaOpcao-&gt;ExecutaAcao</title>
+<path fill="none" stroke="black" d="M506.12,-498.2C510.37,-486.31 516.12,-470.21 521.02,-456.48"/>
+<polygon fill="black" stroke="black" points="524.31,-457.68 524.38,-447.08 517.72,-455.32 524.31,-457.68"/>
+</g>
+<!-- ExecutaAcao&#45;&gt;AtualizaMenu -->
+<g id="edge15" class="edge">
+<title>ExecutaAcao-&gt;AtualizaMenu</title>
+<path fill="none" stroke="black" d="M509.4,-410.21C489.61,-395.23 460.08,-372.9 437.82,-356.06"/>
+<polygon fill="black" stroke="black" points="440.06,-353.37 429.97,-350.12 435.84,-358.95 440.06,-353.37"/>
+</g>
+<!-- VerificaSubmenu -->
+<g id="node21" class="node">
+<title>VerificaSubmenu</title>
+<ellipse fill="white" stroke="white" cx="759" cy="-516.35" rx="79.15" ry="18"/>
+<text text-anchor="middle" x="759" y="-512.15" font-family="Times,serif" font-size="14.00">VerificaSubmenu</text>
+</g>
+<!-- ExecutaAcao&#45;&gt;VerificaSubmenu -->
+<g id="edge27" class="edge">
+<title>ExecutaAcao-&gt;VerificaSubmenu</title>
+<path fill="none" stroke="black" d="M558.27,-444.11C578.62,-455.27 607.36,-470.09 633.82,-480.35 653.09,-487.81 674.58,-494.41 694.24,-499.81"/>
+<polygon fill="black" stroke="black" points="693.24,-503.16 703.8,-502.38 695.05,-496.4 693.24,-503.16"/>
+<text text-anchor="middle" x="683.41" y="-467.75" font-family="Times,serif" font-size="14.00">Possui Submenu?</text>
+</g>
+<!-- ConfigOled -->
+<g id="node16" class="node">
+<title>ConfigOled</title>
+<ellipse fill="white" stroke="white" cx="852" cy="-843.95" rx="56.63" ry="18"/>
+<text text-anchor="middle" x="852" y="-839.75" font-family="Times,serif" font-size="14.00">ConfigOled</text>
+</g>
+<!-- InitOled&#45;&gt;ConfigOled -->
+<g id="edge21" class="edge">
+<title>InitOled-&gt;ConfigOled</title>
+<path fill="none" stroke="black" d="M839.12,-898.76C840.97,-891 843.22,-881.63 845.31,-872.89"/>
+<polygon fill="black" stroke="black" points="848.65,-873.99 847.57,-863.45 841.84,-872.36 848.65,-873.99"/>
+</g>
+<!-- ConfigJoystick -->
+<g id="node17" class="node">
+<title>ConfigJoystick</title>
+<ellipse fill="white" stroke="white" cx="708" cy="-843.95" rx="69.52" ry="18"/>
+<text text-anchor="middle" x="708" y="-839.75" font-family="Times,serif" font-size="14.00">ConfigJoystick</text>
+</g>
+<!-- InitJoystick&#45;&gt;ConfigJoystick -->
+<g id="edge22" class="edge">
+<title>InitJoystick-&gt;ConfigJoystick</title>
+<path fill="none" stroke="black" d="M702.69,-898.76C703.45,-891.08 704.36,-881.84 705.22,-873.19"/>
+<polygon fill="black" stroke="black" points="708.67,-873.78 706.17,-863.48 701.71,-873.09 708.67,-873.78"/>
+</g>
+<!-- OledPronto -->
+<g id="node18" class="node">
+<title>OledPronto</title>
+<ellipse fill="white" stroke="white" cx="851" cy="-755.15" rx="55.56" ry="18"/>
+<text text-anchor="middle" x="851" y="-750.95" font-family="Times,serif" font-size="14.00">OledPronto</text>
+</g>
+<!-- ConfigOled&#45;&gt;OledPronto -->
+<g id="edge23" class="edge">
+<title>ConfigOled-&gt;OledPronto</title>
+<path fill="none" stroke="black" d="M851.8,-825.8C851.67,-814.1 851.49,-798.34 851.33,-784.76"/>
+<polygon fill="black" stroke="black" points="854.83,-785.03 851.22,-775.07 847.83,-785.11 854.83,-785.03"/>
+</g>
+<!-- JoystickPronto -->
+<g id="node19" class="node">
+<title>JoystickPronto</title>
+<ellipse fill="white" stroke="white" cx="709" cy="-755.15" rx="68.45" ry="18"/>
+<text text-anchor="middle" x="709" y="-750.95" font-family="Times,serif" font-size="14.00">JoystickPronto</text>
+</g>
+<!-- ConfigJoystick&#45;&gt;JoystickPronto -->
+<g id="edge24" class="edge">
+<title>ConfigJoystick-&gt;JoystickPronto</title>
+<path fill="none" stroke="black" d="M708.2,-825.8C708.33,-814.1 708.51,-798.34 708.67,-784.76"/>
+<polygon fill="black" stroke="black" points="712.17,-785.11 708.78,-775.07 705.17,-785.03 712.17,-785.11"/>
+</g>
+<!-- SistemaPronto -->
+<g id="node20" class="node">
+<title>SistemaPronto</title>
+<ellipse fill="white" stroke="white" cx="780" cy="-647.15" rx="67.37" ry="18"/>
+<text text-anchor="middle" x="780" y="-642.95" font-family="Times,serif" font-size="14.00">SistemaPronto</text>
+</g>
+<!-- OledPronto&#45;&gt;SistemaPronto -->
+<g id="edge25" class="edge">
+<title>OledPronto-&gt;SistemaPronto</title>
+<path fill="none" stroke="black" d="M839.59,-737.11C828.31,-720.27 810.88,-694.25 797.78,-674.69"/>
+<polygon fill="black" stroke="black" points="800.69,-672.75 792.22,-666.39 794.88,-676.65 800.69,-672.75"/>
+</g>
+<!-- JoystickPronto&#45;&gt;SistemaPronto -->
+<g id="edge26" class="edge">
+<title>JoystickPronto-&gt;SistemaPronto</title>
+<path fill="none" stroke="black" d="M720.41,-737.11C731.69,-720.27 749.12,-694.25 762.22,-674.69"/>
+<polygon fill="black" stroke="black" points="765.12,-676.65 767.78,-666.39 759.31,-672.75 765.12,-676.65"/>
+</g>
+<!-- NavegaSubmenu -->
+<g id="node22" class="node">
+<title>NavegaSubmenu</title>
+<ellipse fill="white" stroke="white" cx="875" cy="-427.55" rx="77.01" ry="18"/>
+<text text-anchor="middle" x="875" y="-423.35" font-family="Times,serif" font-size="14.00">NavegaSubmenu</text>
+</g>
+<!-- VerificaSubmenu&#45;&gt;NavegaSubmenu -->
+<g id="edge28" class="edge">
+<title>VerificaSubmenu-&gt;NavegaSubmenu</title>
+<path fill="none" stroke="black" d="M781.37,-498.61C799.02,-485.4 823.86,-466.81 843.52,-452.1"/>
+<polygon fill="black" stroke="black" points="845.58,-454.93 851.49,-446.14 841.39,-449.33 845.58,-454.93"/>
+<text text-anchor="middle" x="838.67" y="-467.75" font-family="Times,serif" font-size="14.00">Sim</text>
+</g>
+<!-- ExecutaFuncao -->
+<g id="node23" class="node">
+<title>ExecutaFuncao</title>
+<ellipse fill="white" stroke="white" cx="709" cy="-427.55" rx="70.56" ry="18"/>
+<text text-anchor="middle" x="709" y="-423.35" font-family="Times,serif" font-size="14.00">ExecutaFuncao</text>
+</g>
+<!-- VerificaSubmenu&#45;&gt;ExecutaFuncao -->
+<g id="edge29" class="edge">
+<title>VerificaSubmenu-&gt;ExecutaFuncao</title>
+<path fill="none" stroke="black" d="M752.99,-497.98C749.08,-487.64 743.51,-474.45 737,-463.55 735.13,-460.4 733,-457.24 730.77,-454.16"/>
+<polygon fill="black" stroke="black" points="733.74,-452.29 724.87,-446.51 728.2,-456.56 733.74,-452.29"/>
+<text text-anchor="middle" x="757.58" y="-467.75" font-family="Times,serif" font-size="14.00">Não</text>
+</g>
+<!-- NavegaSubmenu&#45;&gt;AtualizaMenu -->
+<g id="edge30" class="edge">
+<title>NavegaSubmenu-&gt;AtualizaMenu</title>
+<path fill="none" stroke="black" d="M830.16,-412.55C816.97,-408.69 802.47,-404.71 789,-401.55 680.2,-376.01 552.05,-354.68 475.28,-342.83"/>
+<polygon fill="black" stroke="black" points="476.25,-339.44 465.83,-341.38 475.19,-346.36 476.25,-339.44"/>
+</g>
+<!-- ExecutaFuncao&#45;&gt;AtualizaMenu -->
+<g id="edge31" class="edge">
+<title>ExecutaFuncao-&gt;AtualizaMenu</title>
+<path fill="none" stroke="black" d="M665.41,-413.01C611.24,-396.18 518.83,-367.48 460.45,-349.35"/>
+<polygon fill="black" stroke="black" points="461.64,-346.05 451.05,-346.43 459.56,-352.73 461.64,-346.05"/>
+</g>
+<!-- DesenhaOpcoes&#45;&gt;DesenhaRetangulo -->
+<g id="edge35" class="edge">
+<title>DesenhaOpcoes-&gt;DesenhaRetangulo</title>
+<path fill="none" stroke="black" d="M105.06,-313.5C104.13,-296.35 102.68,-269.72 101.57,-249.32"/>
+<polygon fill="black" stroke="black" points="105.07,-249.17 101.03,-239.37 98.08,-249.55 105.07,-249.17"/>
+</g>
+<!-- DesenhaRetangulo&#45;&gt;DesenhaSetas -->
+<g id="edge36" class="edge">
+<title>DesenhaRetangulo-&gt;DesenhaSetas</title>
+<path fill="none" stroke="black" d="M101.25,-201.13C102.49,-183.98 104.42,-157.35 105.9,-136.95"/>
+<polygon fill="black" stroke="black" points="109.39,-137.23 106.62,-127 102.41,-136.72 109.39,-137.23"/>
+</g>
+<!-- MenuAtualizado -->
+<g id="node27" class="node">
+<title>MenuAtualizado</title>
+<ellipse fill="white" stroke="white" cx="108" cy="-34" rx="75.93" ry="18"/>
+<text text-anchor="middle" x="108" y="-29.8" font-family="Times,serif" font-size="14.00">MenuAtualizado</text>
+</g>
+<!-- DesenhaSetas&#45;&gt;MenuAtualizado -->
+<g id="edge37" class="edge">
+<title>DesenhaSetas-&gt;MenuAtualizado</title>
+<path fill="none" stroke="black" d="M108,-88.81C108,-81.23 108,-72.1 108,-63.54"/>
+<polygon fill="black" stroke="black" points="111.5,-63.54 108,-53.54 104.5,-63.54 111.5,-63.54"/>
+</g>
+<!-- MenuAtualizado&#45;&gt;EndLoop -->
+<g id="edge38" class="edge">
+<title>MenuAtualizado-&gt;EndLoop</title>
+<path fill="none" stroke="black" d="M134.62,-51.32C180.27,-79.32 274.85,-137.33 339.62,-177.05"/>
+<polygon fill="black" stroke="black" points="337.71,-179.98 348.06,-182.23 341.36,-174.01 337.71,-179.98"/>
+</g>
+</g>
+</svg>
