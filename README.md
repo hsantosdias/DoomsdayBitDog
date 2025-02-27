@@ -114,7 +114,7 @@ O BitDogLab-Menu é um sistema de navegação de menus hierárquicos desenvolvid
 
 * Utilize o **Visual Studio Code** com a  **extensão Raspberry Pico SDK** .
 * Estrutura de diretórios inicial:
-
+```textplan
 ├── CMakeLists.txt
 ├── DoomsdayBitDog.c  // Programa principal
 ├── src/
@@ -125,7 +125,7 @@ O BitDogLab-Menu é um sistema de navegação de menus hierárquicos desenvolvid
     ├── BitDog-SensorMatrix.h
     ├── ssd1306.h
     └── sensores.h
-
+```
 Estrutura de Arquivos e Diretórios do Projeto **DoomsdayBitDog**
 
 ---
